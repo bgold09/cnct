@@ -1,0 +1,7 @@
+{
+    "files.eol": "\n",
+    "tslint.configFile": "tslint.json", 
+    "tslint.run": "onType", 
+    "tslint.enable": true,
+    "typescript.tsdk": "./node_modules/typescript/lib"
+}
