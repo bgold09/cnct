@@ -1,17 +1,15 @@
 {
   "name": "cnct",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
+  "private": true,
   "main": "dist/index.js",
   "scripts": {
     "compile": "node ./node_modules/typescript/bin/tsc",
     "lint": "node ./node_modules/tslint/bin/tslint -c tslint.json src/**/*.ts",
     "test": "npm run lint && npm run compile"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bgold09/cnct.git"
-  },
+  "repository": "git+https://github.com/bgold09/cnct.git",
   "keywords": [
     "dotfiles",
     "cli"
