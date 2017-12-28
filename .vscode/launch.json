@@ -19,6 +19,24 @@
             "address": "localhost",
             "port": 5858,
             "outFiles": []
-        }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run Mocha",
+            "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+            "args": ["${workspaceRoot}/dist/**/*.spec.js"],
+            "cwd": "${workspaceRoot}",
+            "sourceMaps": true
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run Mocha (current file)",
+            "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+            "args": ["${workspaceRoot}/dist/**/${fileBasenameNoExtension}.js"],
+            "cwd": "${workspaceRoot}",
+            "sourceMaps": true
+        },
     ]
 }
