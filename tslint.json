@@ -5,10 +5,31 @@
     ],
     "jsRules": {},
     "rules": {
-        "interface-name": [
-            "always-prefix"
+        "interface-name": [ true, "always-prefix" ],
+        "member-ordering": [ 
+            true,
+            {
+                "order": [
+                    "public-static-field",
+                    "protected-static-field",
+                    "private-static-field",
+                    "public-instance-field",
+                    "protected-instance-field",
+                    "private-instance-field",
+                    "public-constructor",
+                    "protected-constructor",
+                    "private-constructor",
+                    "public-static-method",
+                    "public-instance-method",
+                    "protected-static-method",
+                    "protected-instance-method",
+                    "private-static-method",
+                    "private-instance-method"
+                ]
+            }
         ],
-        "no-any": true
+        "no-any": true,
+        "no-implicit-dependencies": [ true, "dev" ]
     },
     "rulesDirectory": []
 }

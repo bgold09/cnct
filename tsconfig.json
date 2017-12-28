@@ -1,11 +1,13 @@
 {
     "compilerOptions": {
         "alwaysStrict": true,
+        "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
         "inlineSourceMap": true,
         "listEmittedFiles": true,
         "listFiles": true, 
         "module": "commonjs",
+        "moduleResolution": "node",
         "newLine": "LF",
         "noEmitOnError": true,
         "noImplicitAny": false,
@@ -17,6 +19,9 @@
         "preserveConstEnums": true,
         "removeComments": false,
         "strictNullChecks": true,
+        "typeRoots": [
+            "./node_modules/@types"
+        ],
         "target": "es6"
     },
     "include": [
