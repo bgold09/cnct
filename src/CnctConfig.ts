@@ -34,6 +34,31 @@ export class CnctConfig {
         });
     }
 
+    public validate(): void {
+        const invalidActions: Array<{ index: number, message: string }> = [];
+
+        this.actionConfigs.forEach((action, index) => {
+            try {
+                action.validate();
+            } catch (e) {
+                const error = e as Error;
+                invalidActions.push({
+                    index,
+                    message: error.message,
+                });
+            }
+        });
+
+        if (invalidActions.length > 0) {
+            let message = "The following actions are improperly configured:";
+            invalidActions.forEach((info) => {
+                message += `\n  actions[${info.index}]: ${info.message}`;
+            });
+
+            throw new Error(message);
+        }
+    }
+
     public execute(): void {
         this.actionConfigs.forEach((action) => {
             action.execute();
