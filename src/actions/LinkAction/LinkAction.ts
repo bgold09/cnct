@@ -1,18 +1,19 @@
 import { Exclude, Expose } from "class-transformer";
-import { IAction } from "../../IAction";
+import { CnctActionBase } from "../../CnctActionBase";
 import { ILinkCreationConfig } from "./ILinkCreationConfig";
 import { ILinkCreator } from "./ILinkCreator";
 import { LinkCreator } from "./LinkCreator";
 
 @Exclude()
-export class LinkAction implements IAction {
-    public readonly actionType: string = "link";
+export class LinkAction extends CnctActionBase {
+    public static readonly linkActionType = "link";
 
     public constructor(
         public readonly linkAssociations: Map<string, string[]> = new Map<string, string[]>(),
         public readonly linkCreationConfig: ILinkCreationConfig = {},
         private readonly linkCreator: ILinkCreator = new LinkCreator(),
     ) {
+        super(LinkAction.linkActionType);
     }
 
     @Expose()
