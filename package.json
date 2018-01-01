@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "compile": "node ./node_modules/typescript/bin/tsc",
-    "lint": "node ./node_modules/tslint/bin/tslint -c tslint.json src/**/*.ts",
+    "lint": "node ./node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json src/**/*.ts",
     "mocha": "node ./node_modules/mocha/bin/mocha ./dist/**/**.spec.js",
     "test": "npm run lint && npm run compile && npm run mocha"
   },
@@ -27,6 +27,7 @@
     "chai": "^4.1.2",
     "mocha": "^4.0.1",
     "tslint": "^5.8.0",
+    "tslint-microsoft-contrib": "^5.0.1",
     "typemoq": "^2.1.0",
     "typescript": "^2.6.2"
   },

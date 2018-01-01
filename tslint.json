@@ -1,11 +1,16 @@
 {
     "defaultSeverity": "error",
     "extends": [
-        "tslint:latest"
+        "tslint-microsoft-contrib"
     ],
     "jsRules": {},
     "rules": {
+
+
+        "array-type": [ true, "array-simple" ],
         "arrow-parens": false,
+        "completed-docs": false,
+        "function-name": false,
         "interface-name": [ true, "always-prefix" ],
         "member-ordering": [ 
             true,
@@ -29,8 +34,18 @@
                 ]
             }
         ],
+        "missing-jsdoc": false,
         "no-any": true,
-        "no-implicit-dependencies": [ true, "dev" ]
+        "no-implicit-dependencies": [ true, "dev" ],
+        "no-parameter-properties": false,
+        "no-relative-imports": false,
+        "prefer-array-literal": false,
+        "prefer-type-cast": false,
+        "quotemark": [ true, "double" ],
+        "strict-boolean-expressions": false,
+        "trailing-comma": true
     },
-    "rulesDirectory": []
+    "rulesDirectory": [
+        "./node_modules/tslint-microsoft-contrib"
+    ]
 }

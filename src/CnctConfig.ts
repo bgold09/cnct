@@ -11,25 +11,28 @@ export class CnctConfig {
 
     @Expose()
     public set actions(value: CnctActionBase[]) {
-        value.forEach((action) => {
+        value.forEach((action: CnctActionBase) => {
             if (!action.actionType || (action.actionType === "")) {
                 throw new Error();
             }
 
+            /* tslint:disable:typedef */
             const actionTypes = ActionTypes.getActionTypes();
             const actionCtor = actionTypes.get(action.actionType);
+            /* tslint:enable:typedef */
+
             if (!actionCtor) {
                 const names: string[] = [];
-                actionTypes.forEach(({}, key, {}) => {
+                actionTypes.forEach(({}: Object, key: string) => {
                     names.push(`'${key}'`);
                 });
 
-                const namesString = names.join(", ");
+                const namesString: string = names.join(", ");
                 throw new Error(
                     `The action type ${action.actionType} is not recognized. Allowed values are: ${namesString}`);
             }
 
-            const actionClass = plainToClass(actionCtor, action);
+            const actionClass: CnctActionBase = plainToClass(actionCtor, action);
             this.actionConfigs.push(actionClass as CnctActionBase);
         });
     }
@@ -37,11 +40,11 @@ export class CnctConfig {
     public validate(): void {
         const invalidActions: Array<{ index: number, message: string }> = [];
 
-        this.actionConfigs.forEach((action, index) => {
+        this.actionConfigs.forEach((action: CnctActionBase, index: number) => {
             try {
                 action.validate();
             } catch (e) {
-                const error = e as Error;
+                const error: Error = e as Error;
                 invalidActions.push({
                     index,
                     message: error.message,
@@ -50,8 +53,8 @@ export class CnctConfig {
         });
 
         if (invalidActions.length > 0) {
-            let message = "The following actions are improperly configured:";
-            invalidActions.forEach((info) => {
+            let message: string = "The following actions are improperly configured:";
+            invalidActions.forEach((info: { index: number, message: string }) => {
                 message += `\n  actions[${info.index}]: ${info.message}`;
             });
 
@@ -60,7 +63,7 @@ export class CnctConfig {
     }
 
     public execute(): void {
-        this.actionConfigs.forEach((action) => {
+        this.actionConfigs.forEach((action: CnctActionBase) => {
             action.execute();
         });
     }

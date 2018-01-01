@@ -1,5 +1,6 @@
-#!/usr/bin/env node
+// #!/usr/bin/env node
 
+// tslint:disable-next-line:export-name
 export class Hello {
     public c: NodeBuffer;
 

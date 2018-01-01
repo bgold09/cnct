@@ -6,7 +6,7 @@ import { LinkCreator } from "./LinkCreator";
 
 @Exclude()
 export class LinkAction extends CnctActionBase {
-    public static readonly linkActionType = "link";
+    public static readonly linkActionType: string = "link";
 
     public constructor(
         public readonly linkAssociations: Map<string, string[]> = new Map<string, string[]>(),
@@ -22,34 +22,34 @@ export class LinkAction extends CnctActionBase {
     }
 
     @Expose()
-    public set links(value: {}) {
-        Object.keys(value).forEach((key) => {
+    public set links(value: { [index: string]: string[]}) {
+        Object.keys(value).forEach((key: string) => {
             this.linkAssociations.set(key, value[key]);
         });
     }
 
     public execute(): void {
-        this.linkAssociations.forEach((destinationPaths, targetPath, _) => {
+        this.linkAssociations.forEach((destinationPaths: string[], targetPath: string) => {
             destinationPaths.forEach((destinationPath: string) => {
                 this.linkCreator.createLink(targetPath, destinationPath, this.linkCreationConfig);
             });
         });
     }
 
-    public validate() {
+    public validate(): void {
         if (this.linkAssociations.size === 0) {
             throw new RangeError("There must be at least one target path to create links for.");
         }
 
         const badTargets: string[] = [];
-        this.linkAssociations.forEach((destinationPaths, targetPath, _) => {
+        this.linkAssociations.forEach((destinationPaths: string[], targetPath: string) => {
             if (destinationPaths.length === 0) {
                 badTargets.push(`'${targetPath}'`);
             }
         });
 
         if (badTargets.length > 0) {
-            const targetNames = badTargets.join(", ");
+            const targetNames: string = badTargets.join(", ");
             throw new RangeError(
                 `The following link targets have no destination links associated with them: ${targetNames}`);
         }

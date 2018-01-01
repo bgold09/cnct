@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import rimraf = require("rimraf");
+import * as rimraf from "rimraf";
 import { ILinkCreationConfig } from "./ILinkCreationConfig";
 import { ILinkCreator } from "./ILinkCreator";
 
@@ -22,7 +22,7 @@ export class LinkCreator implements ILinkCreator {
         } else if (targetFileInfo.isFile()) {
             LinkCreator.createFileLink(target, link, destinationExists);
         } else {
-            throw new RangeError(`Could not create link to '{target}'; it is not a file or directory.`);
+            throw new RangeError(`Could not create link to '${target}'; it is not a file or directory.`);
         }
     }
 
@@ -36,7 +36,7 @@ export class LinkCreator implements ILinkCreator {
 
     private static createDirectoryLink(target: string, link: string, destinationExists: boolean): void {
         if (destinationExists) {
-            rimraf(link, (error) => {
+            rimraf(link, (error: Error) => {
                 throw error;
             });
         }
