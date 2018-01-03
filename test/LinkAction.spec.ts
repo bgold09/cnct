@@ -18,13 +18,14 @@ describe("LinkAction", () => {
     };
 
     const linkCreatorMock = TypeMoq.Mock.ofType<ILinkCreator>(undefined, TypeMoq.MockBehavior.Strict);
-    expectedLinks.forEach((destinationPaths, targetPath, _) => {
+    expectedLinks.forEach((destinationPaths, targetPath) => {
       for (const destinationPath of destinationPaths) {
         linkCreatorMock.setup(
-          (m) => m.createLink(
+          (m) => m.createLinkAsync(
             targetPath,
             destinationPath,
             TypeMoq.It.isObjectWith<ILinkCreationConfig>(expectedLinkConfig)))
+          .returns(() => Promise.resolve())
           .verifiable(TypeMoq.Times.once());
       }
     });
@@ -74,8 +75,8 @@ describe("LinkAction", () => {
 {
   "force":true,
   "links": {
-    "key1":[ "path1" ],
-    "key2":[ "path2", "path3" ]
+    "key1": { "paths": [ "path1" ] },
+    "key2": { "paths": [ "path2", "path3" ] }
   },
   "type":"link"
 }`;

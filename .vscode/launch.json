@@ -7,6 +7,17 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Launch Program w/ args",
+            "program": "${workspaceRoot}/dist/src/index.js",
+            "sourceMaps": true,
+            "outFiles": [],
+            "args": [
+                ""
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceRoot}/dist/index.js",
             "sourceMaps": true,

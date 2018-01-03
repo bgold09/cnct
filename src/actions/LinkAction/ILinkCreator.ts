@@ -1,5 +1,5 @@
 import { ILinkCreationConfig } from "./ILinkCreationConfig";
 
 export interface ILinkCreator {
-    createLink(target: string, link: string, linkCreationConfig: ILinkCreationConfig): void;
+    createLinkAsync(target: string, link: string, linkCreationConfig: ILinkCreationConfig): Promise<void>;
 }

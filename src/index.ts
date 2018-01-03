@@ -1,10 +1,9 @@
-// #!/usr/bin/env node
+#!/usr/bin/env node
 
-// tslint:disable-next-line:export-name
-export class Hello {
-    public c: NodeBuffer;
+import { Program } from "./Program";
 
-    public constructor(v: NodeBuffer) {
-        this.c = v;
-    }
-}
+const program: Program = new Program(process.argv);
+program.runAsync()
+    .catch((reason: Error) => {
+        console.error(reason.message);
+    });

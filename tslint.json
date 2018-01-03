@@ -10,6 +10,7 @@
         "array-type": [ true, "array-simple" ],
         "arrow-parens": false,
         "completed-docs": false,
+        "no-floating-promises": true,
         "function-name": false,
         "interface-name": [ true, "always-prefix" ],
         "member-ordering": [ 

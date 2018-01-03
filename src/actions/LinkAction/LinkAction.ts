@@ -4,6 +4,12 @@ import { ILinkCreationConfig } from "./ILinkCreationConfig";
 import { ILinkCreator } from "./ILinkCreator";
 import { LinkCreator } from "./LinkCreator";
 
+type LinksPropertySignature = {
+    [index: string]: {
+        paths: string[],
+    },
+};
+
 @Exclude()
 export class LinkAction extends CnctActionBase {
     public static readonly linkActionType: string = "link";
@@ -22,16 +28,16 @@ export class LinkAction extends CnctActionBase {
     }
 
     @Expose()
-    public set links(value: { [index: string]: string[]}) {
+    public set links(value: LinksPropertySignature) {
         Object.keys(value).forEach((key: string) => {
-            this.linkAssociations.set(key, value[key]);
+            this.linkAssociations.set(key, value[key].paths);
         });
     }
 
-    public execute(): void {
+    public async execute(): Promise<void> {
         this.linkAssociations.forEach((destinationPaths: string[], targetPath: string) => {
-            destinationPaths.forEach((destinationPath: string) => {
-                this.linkCreator.createLink(targetPath, destinationPath, this.linkCreationConfig);
+            destinationPaths.forEach(async (destinationPath: string) => {
+                await this.linkCreator.createLinkAsync(targetPath, destinationPath, this.linkCreationConfig);
             });
         });
     }

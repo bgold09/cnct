@@ -23,8 +23,10 @@
   "homepage": "https://github.com/bgold09/cnct#readme",
   "devDependencies": {
     "@types/chai": "^4.0.10",
+    "@types/chai-as-promised": "^7.1.0",
     "@types/mocha": "^2.2.45",
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "mocha": "^4.0.1",
     "tslint": "^5.8.0",
     "tslint-microsoft-contrib": "^5.0.1",
