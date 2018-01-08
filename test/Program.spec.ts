@@ -21,8 +21,8 @@ describe("Program", () => {
         configMock.setup(m => m.execute()).verifiable(TypeMoq.Times.once());
 
         const configLoaderMock: TypeMoq.IMock<CnctConfigLoader> = TypeMoq.Mock.ofType(CnctConfigLoader);
-        configLoaderMock.setup(m => m.loadConfigAsync())
-            .returns(() => Promise.resolve(configMock.object))
+        configLoaderMock.setup(async m => m.loadConfigAsync())
+            .returns(async () => Promise.resolve(configMock.object))
             .verifiable(TypeMoq.Times.once());
 
         const program: Program = new Program([ "", "", expectedFilePath ], configLoaderMock.object);
@@ -43,11 +43,12 @@ describe("Program", () => {
         configMock.setup(m => m.execute()).verifiable(TypeMoq.Times.never());
 
         const configLoaderMock: TypeMoq.IMock<CnctConfigLoader> = TypeMoq.Mock.ofType(CnctConfigLoader);
-        configLoaderMock.setup(m => m.loadConfigAsync())
-            .returns(() => Promise.resolve(configMock.object))
+        configLoaderMock.setup(async m => m.loadConfigAsync())
+            .returns(async () => Promise.resolve(configMock.object))
             .verifiable(TypeMoq.Times.once());
 
         const program: Program = new Program([ "", "", expectedFilePath ], configLoaderMock.object);
+        // tslint:disable-next-line:await-promise
         await expect(program.runAsync()).to.be.rejectedWith(expectedError);
 
         configLoaderMock.verifyAll();

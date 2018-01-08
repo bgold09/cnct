@@ -5,8 +5,6 @@
     ],
     "jsRules": {},
     "rules": {
-
-
         "array-type": [ true, "array-simple" ],
         "arrow-parens": false,
         "completed-docs": false,
@@ -40,6 +38,7 @@
         "no-implicit-dependencies": [ true, "dev" ],
         "no-parameter-properties": false,
         "no-relative-imports": false,
+        "no-void-expression": [ true, "ignore-arrow-function-shorthand" ],
         "prefer-array-literal": false,
         "prefer-type-cast": false,
         "quotemark": [ true, "double" ],

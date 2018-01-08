@@ -1,3 +1,4 @@
+// tslint:disable:no-import-side-effect
 import { expect } from "chai";
 import { deserialize } from "class-transformer";
 import "mocha";
@@ -8,7 +9,8 @@ import { CnctConfig } from "../src/CnctConfig";
 describe("CnctConfig", () => {
 
     it("can deserialize actions", () => {
-        const json = `
+        // tslint:disable-next-line:no-multiline-string
+        const json: string = `
 {
   "actions": [
     {
@@ -25,18 +27,20 @@ describe("CnctConfig", () => {
   ]
 }`;
 
-        const cnctConfig = deserialize(CnctConfig, json);
+        const cnctConfig: CnctConfig = deserialize(CnctConfig, json);
         expect(cnctConfig.actionConfigs.length).to.equal(1);
         expect(cnctConfig.actionConfigs[0].constructor.name).to.equal("LinkAction");
     });
 
     it("validates children configurations are valid", () => {
+        /* tslint:disable:typedef */
         const actionMock1 =  TypeMoq.Mock.ofType<CnctActionBase>();
         actionMock1.setup(m => m.validate()).verifiable(TypeMoq.Times.once());
         const actionMock2 =  TypeMoq.Mock.ofType<CnctActionBase>();
         actionMock2.setup(m => m.validate()).verifiable(TypeMoq.Times.once());
+        /* tslint:enable:typedef */
 
-        const cnctConfig = new CnctConfig([ actionMock1.object, actionMock2.object ]);
+        const cnctConfig: CnctConfig = new CnctConfig([ actionMock1.object, actionMock2.object ]);
         cnctConfig.validate();
 
         actionMock1.verifyAll();
@@ -44,17 +48,16 @@ describe("CnctConfig", () => {
     });
 
     it("throws if one or more children configurations are invalid", () => {
+        /* tslint:disable:typedef */
         const actionMock1 =  TypeMoq.Mock.ofType<CnctActionBase>();
         actionMock1.setup(m => m.validate()).throws(new Error()).verifiable(TypeMoq.Times.once());
         const actionMock2 =  TypeMoq.Mock.ofType<CnctActionBase>();
         actionMock2.setup(m => m.validate()).throws(new Error()).verifiable(TypeMoq.Times.once());
+        /* tslint:enable:typedef */
 
-        const cnctConfig = new CnctConfig([ actionMock1.object, actionMock2.object ]);
-        const testFunc = () => {
-            cnctConfig.validate();
-        };
+        const cnctConfig: CnctConfig = new CnctConfig([ actionMock1.object, actionMock2.object ]);
 
-        expect(testFunc).to.throw(Error);
+        expect(() => cnctConfig.validate()).to.throw(Error);
 
         actionMock1.verifyAll();
         actionMock2.verifyAll();

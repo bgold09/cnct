@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "compile": "node ./node_modules/typescript/bin/tsc",
-    "lint": "node ./node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json src/**/*.ts",
+    "lint": "node ./node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json src/**/*.ts test/**/*.ts",
     "mocha": "node ./node_modules/mocha/bin/mocha ./dist/**/**.spec.js",
     "test": "npm run lint && npm run compile && npm run mocha"
   },
