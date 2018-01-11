@@ -1,11 +1,17 @@
 import * as fs from "fs";
+import * as os from "os";
+import * as path from "path";
 import * as rimraf from "rimraf";
 import { lstatAsync, symlinkAsync, unlinkAsync } from "../../nodeAsync/fsAsync";
 import { ILinkCreationConfig } from "./ILinkCreationConfig";
 import { ILinkCreator } from "./ILinkCreator";
 
 export class LinkCreator implements ILinkCreator {
+
     public async createLinkAsync(target: string, link: string, linkCreationConfig: ILinkCreationConfig): Promise<void> {
+        target = LinkCreator.normalizePath(target);
+        link = LinkCreator.normalizePath(link);
+
         let destinationExists: boolean = false;
         try {
             await lstatAsync(link);
@@ -48,5 +54,17 @@ export class LinkCreator implements ILinkCreator {
         }
 
         await symlinkAsync(target, link, "directory");
+    }
+
+    private static normalizePath(filePath: string): string {
+        if (path.isAbsolute(filePath)) {
+            return filePath;
+        }
+
+        if (filePath.startsWith("~")) {
+            return `${os.homedir()}/${filePath.substr(1)}`;
+        }
+
+        return `${process.cwd()}/${filePath}`;
     }
 }

@@ -1,0 +1,14 @@
+{
+  "actions": [
+    {
+      "actionType": "link",
+      "links": {
+        "Program.spec.ts": {
+          "paths": [
+            "~/linked.ts"
+          ]
+        }
+      }
+    }
+  ]
+}
