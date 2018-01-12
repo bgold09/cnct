@@ -5,6 +5,7 @@ import "mocha";
 import * as TypeMoq from "typemoq";
 import { CnctActionBase } from "../src/CnctActionBase";
 import { CnctConfig } from "../src/CnctConfig";
+import { ILogger } from "../src/Logger/ILogger";
 
 describe("CnctConfig", () => {
 
@@ -38,13 +39,17 @@ describe("CnctConfig", () => {
         actionMock1.setup(m => m.validate()).verifiable(TypeMoq.Times.once());
         const actionMock2 =  TypeMoq.Mock.ofType<CnctActionBase>();
         actionMock2.setup(m => m.validate()).verifiable(TypeMoq.Times.once());
+
+        const loggerMock = TypeMoq.Mock.ofType<ILogger>();
+        loggerMock.setup(m => m.logVerbose(TypeMoq.It.isAnyString())).verifiable(TypeMoq.Times.exactly(2));
         /* tslint:enable:typedef */
 
-        const cnctConfig: CnctConfig = new CnctConfig([ actionMock1.object, actionMock2.object ]);
+        const cnctConfig: CnctConfig = new CnctConfig([ actionMock1.object, actionMock2.object ], loggerMock.object);
         cnctConfig.validate();
 
         actionMock1.verifyAll();
         actionMock2.verifyAll();
+        loggerMock.verifyAll();
     });
 
     it("throws if one or more children configurations are invalid", () => {

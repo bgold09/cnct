@@ -1,11 +1,14 @@
 import { Expose, plainToClass } from "class-transformer";
 import { ActionTypes } from "./ActionTypes";
 import { CnctActionBase } from "./CnctActionBase";
+import { ConsoleLogger } from "./Logger/ConsoleLogger";
+import { ILogger } from "./Logger/ILogger";
 
 export class CnctConfig {
 
     public constructor(
         public actionConfigs: CnctActionBase[] = [],
+        private readonly logger: ILogger = new ConsoleLogger(),
     ) {
     }
 
@@ -43,6 +46,7 @@ export class CnctConfig {
         this.actionConfigs.forEach((action: CnctActionBase, index: number) => {
             try {
                 action.validate();
+                this.logger.logVerbose(`${action.actionType} action validation passed`);
             } catch (e) {
                 const error: Error = e as Error;
                 invalidActions.push({

@@ -6,13 +6,17 @@ import { CnctConfigLoader } from "./CnctConfigLoader";
 
 export type ProgramOptions = {
     config: string,
+    quiet: boolean,
+    verbose: boolean,
 };
 
 export class Program {
     public static cliOptions: ProgramOptions;
 
     private static readonly cliOptionDefinitions: OptionDefinition[] = [
-        { name: "config", alias: "c", type: String },
+        { alias: "c", name: "config",  type: String },
+        { alias: "q", name: "quiet",   type: Boolean },
+        { alias: "v", name: "verbose", type: Boolean },
     ];
 
     private readonly configLoader: CnctConfigLoader;
@@ -28,6 +32,11 @@ export class Program {
         const options: ProgramOptions = commandLineArgs(Program.cliOptionDefinitions, { argv }) as ProgramOptions;
         if (!options.config) {
             options.config = `${process.cwd()}${path.sep}cnct.json`;
+        }
+
+        if (options.quiet) {
+            // quiet-level logging should override everything else
+            options.verbose = false;
         }
 
         Program.cliOptions = options;

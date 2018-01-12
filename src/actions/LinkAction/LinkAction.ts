@@ -1,6 +1,8 @@
 import { Exclude, Expose } from "class-transformer";
 import * as os from "os";
 import { CnctActionBase } from "../../CnctActionBase";
+import { ConsoleLogger } from "../../Logger/ConsoleLogger";
+import { ILogger } from "../../Logger/ILogger";
 import { ILinkCreationConfig } from "./ILinkCreationConfig";
 import { ILinkCreator } from "./ILinkCreator";
 import { LinkCreator } from "./LinkCreator";
@@ -37,8 +39,9 @@ export class LinkAction extends CnctActionBase {
         },
         public readonly linkCreationConfig: ILinkCreationConfig = {},
         private readonly linkCreator: ILinkCreator = new LinkCreator(),
+        logger: ILogger = new ConsoleLogger(),
     ) {
-        super(LinkAction.linkActionType);
+        super(LinkAction.linkActionType, logger);
     }
 
     @Expose()
@@ -65,6 +68,8 @@ export class LinkAction extends CnctActionBase {
     }
 
     public async execute(): Promise<void> {
+        super.execute();
+
         this.createLinks(this.platformAgnosticLinks);
 
         const osType: OperatingSystemType = os.type() as OperatingSystemType;
@@ -124,6 +129,7 @@ export class LinkAction extends CnctActionBase {
     private createLinks(links: Map<string, string[]>): void {
         links.forEach((destinationPaths: string[], targetPath: string) => {
             destinationPaths.forEach(async (destinationPath: string) => {
+                this.logger.logInfo(`  [LINK] ${targetPath} -> ${destinationPath}`);
                 await this.linkCreator.createLinkAsync(targetPath, destinationPath, this.linkCreationConfig);
             });
         });

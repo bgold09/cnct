@@ -6,6 +6,7 @@ import * as TypeMoq from "typemoq";
 import { ILinkCreationConfig } from "../src/actions/LinkAction/ILinkCreationConfig";
 import { ILinkCreator } from "../src/actions/LinkAction/ILinkCreator";
 import { LinkAction } from "../src/actions/LinkAction/LinkAction";
+import { ILogger } from "../src/Logger/ILogger";
 
 describe("LinkAction", () => {
 
@@ -19,6 +20,9 @@ describe("LinkAction", () => {
     };
 
     /* tslint:disable:typedef */
+    const loggerMock = TypeMoq.Mock.ofType<ILogger>();
+    loggerMock.setup(m => m.logInfo(TypeMoq.It.is(s => s.startsWith("  [LINK]")))).verifiable(TypeMoq.Times.exactly(3));
+
     const linkCreatorMock = TypeMoq.Mock.ofType<ILinkCreator>(undefined, TypeMoq.MockBehavior.Strict);
     expectedLinks.forEach((destinationPaths: string[], targetPath: string) => {
       for (const destinationPath of destinationPaths) {
@@ -33,10 +37,11 @@ describe("LinkAction", () => {
     });
     /* tslint:enable:typedef */
 
-    const linkAction: LinkAction = new LinkAction(expectedLinks, undefined, expectedLinkConfig, linkCreatorMock.object);
+    const linkAction: LinkAction = new LinkAction(expectedLinks, undefined, expectedLinkConfig, linkCreatorMock.object, loggerMock.object);
     await linkAction.execute();
 
     linkCreatorMock.verifyAll();
+    loggerMock.verifyAll();
   });
 
   it("should create platform-specific destination links", async () => {
@@ -64,6 +69,9 @@ describe("LinkAction", () => {
     };
 
     /* tslint:disable:typedef */
+    const loggerMock = TypeMoq.Mock.ofType<ILogger>();
+    loggerMock.setup(m => m.logInfo(TypeMoq.It.is(s => s.startsWith("  [LINK]")))).verifiable(TypeMoq.Times.exactly(3));
+
     const linkCreatorMock = TypeMoq.Mock.ofType<ILinkCreator>(undefined, TypeMoq.MockBehavior.Strict);
     expectedLinksOsx.forEach((destinationPaths: string[], targetPath: string) => {
       for (const destinationPath of destinationPaths) {
@@ -95,7 +103,12 @@ describe("LinkAction", () => {
     // tslint:disable-next-line:no-unsafe-any
     os.type = (): string => "Darwin";
 
-    const linkAction: LinkAction = new LinkAction(expectedLinksGlobal, platformLinks, expectedLinkConfig, linkCreatorMock.object);
+    const linkAction: LinkAction = new LinkAction(
+      expectedLinksGlobal,
+      platformLinks,
+      expectedLinkConfig,
+      linkCreatorMock.object,
+      loggerMock.object);
 
     await linkAction.execute();
 
