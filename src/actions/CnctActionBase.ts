@@ -1,5 +1,5 @@
-import { ConsoleLogger } from "./Logger/ConsoleLogger";
-import { ILogger } from "./Logger/ILogger";
+import { ConsoleLogger } from "../Logger/ConsoleLogger";
+import { ILogger } from "../Logger/ILogger";
 
 export abstract class CnctActionBase {
     protected constructor(

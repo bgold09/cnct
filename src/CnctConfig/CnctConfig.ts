@@ -1,8 +1,8 @@
 import { Expose, plainToClass } from "class-transformer";
-import { ActionTypes } from "./ActionTypes";
-import { CnctActionBase } from "./CnctActionBase";
-import { ConsoleLogger } from "./Logger/ConsoleLogger";
-import { ILogger } from "./Logger/ILogger";
+import { ActionTypes } from "../actions/ActionTypes";
+import { CnctActionBase } from "../actions/CnctActionBase";
+import { ConsoleLogger } from "../Logger/ConsoleLogger";
+import { ILogger } from "../Logger/ILogger";
 
 export class CnctConfig {
 

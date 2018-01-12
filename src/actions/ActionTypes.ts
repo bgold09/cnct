@@ -1,5 +1,5 @@
-import { LinkAction } from "./actions/LinkAction/LinkAction";
 import { CnctActionBase } from "./CnctActionBase";
+import { LinkAction } from "./LinkAction/LinkAction";
 
 // tslint:disable-next-line:no-stateless-class
 export class ActionTypes {

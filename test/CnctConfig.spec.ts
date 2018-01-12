@@ -3,8 +3,8 @@ import { expect } from "chai";
 import { deserialize } from "class-transformer";
 import "mocha";
 import * as TypeMoq from "typemoq";
-import { CnctActionBase } from "../src/CnctActionBase";
-import { CnctConfig } from "../src/CnctConfig";
+import { CnctActionBase } from "../src/actions/CnctActionBase";
+import { CnctConfig } from "../src/CnctConfig/CnctConfig";
 import { ILogger } from "../src/Logger/ILogger";
 
 describe("CnctConfig", () => {

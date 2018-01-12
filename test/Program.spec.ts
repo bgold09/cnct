@@ -4,8 +4,8 @@ import * as chaiAsPromised from "chai-as-promised";
 import "mocha";
 import * as path from "path";
 import * as TypeMoq from "typemoq";
-import { CnctConfig } from "../src/CnctConfig";
-import { CnctConfigLoader } from "../src/CnctConfigLoader";
+import { CnctConfig } from "../src/CnctConfig/CnctConfig";
+import { CnctConfigLoader } from "../src/CnctConfig/CnctConfigLoader";
 import { Program } from "../src/Program";
 
 before(() => {

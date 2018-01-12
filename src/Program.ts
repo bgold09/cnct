@@ -1,8 +1,8 @@
 import * as commandLineArgs from "command-line-args";
 import { OptionDefinition } from "command-line-args";
 import * as path from "path";
-import { CnctConfig } from "./CnctConfig";
-import { CnctConfigLoader } from "./CnctConfigLoader";
+import { CnctConfig } from "./CnctConfig/CnctConfig";
+import { CnctConfigLoader } from "./CnctConfig/CnctConfigLoader";
 
 export type ProgramOptions = {
     config: string,

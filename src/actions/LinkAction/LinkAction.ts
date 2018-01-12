@@ -1,9 +1,9 @@
 import { Exclude, Expose } from "class-transformer";
 import * as os from "os";
 import * as path from "path";
-import { CnctActionBase } from "../../CnctActionBase";
 import { ConsoleLogger } from "../../Logger/ConsoleLogger";
 import { ILogger } from "../../Logger/ILogger";
+import { CnctActionBase } from "../CnctActionBase";
 import { ILinkCreationConfig } from "./ILinkCreationConfig";
 import { ILinkCreator } from "./ILinkCreator";
 import { LinkCreator } from "./LinkCreator";
