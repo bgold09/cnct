@@ -1,5 +1,6 @@
 import { Exclude, Expose } from "class-transformer";
 import * as os from "os";
+import * as path from "path";
 import { CnctActionBase } from "../../CnctActionBase";
 import { ConsoleLogger } from "../../Logger/ConsoleLogger";
 import { ILogger } from "../../Logger/ILogger";
@@ -7,7 +8,7 @@ import { ILinkCreationConfig } from "./ILinkCreationConfig";
 import { ILinkCreator } from "./ILinkCreator";
 import { LinkCreator } from "./LinkCreator";
 
-type DestinationLinksSignature = string | string[];
+type DestinationLinksSignature = string | string[] | null;
 
 type LinksPropertySignature = {
     [index: string]: DestinationLinksSignature | PlatformLinks
@@ -58,6 +59,8 @@ export class LinkAction extends CnctActionBase {
                 this.platformAgnosticLinks.set(key, [ destinations ]);
             } else if (Array.isArray(destinations)) {
                 this.platformAgnosticLinks.set(key, destinations);
+            } else if (destinations === null) {
+                this.platformAgnosticLinks.set(key, [ LinkAction.convertTargetForNull(key) ]);
             } else {
                 LinkAction.parseLinkAssociations(key, destinations.linux, this.platformLinks.Linux);
                 LinkAction.parseLinkAssociations(key, destinations.windows, this.platformLinks.Windows_NT);
@@ -106,6 +109,8 @@ export class LinkAction extends CnctActionBase {
             links = [];
         } else if (typeof destinations === "string") {
             links = [ destinations ];
+        } else if (destinations === null) {
+            links = [ LinkAction.convertTargetForNull(key) ];
         } else {
             links = destinations;
         }
@@ -113,6 +118,13 @@ export class LinkAction extends CnctActionBase {
         if (links.length > 0) {
             linkAssociations.set(key, links);
         }
+    }
+
+    private static convertTargetForNull(target: string): string {
+        const targetBaseName: string = path.basename(target);
+        const dest: string = (targetBaseName.startsWith(".")) ? targetBaseName : `.${targetBaseName}`;
+
+        return `~${path.sep}${dest}`;
     }
 
     private static findBadTargets(links: Map<string, string[]>): string[] {

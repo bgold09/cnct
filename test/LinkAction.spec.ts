@@ -2,6 +2,7 @@
 import { expect } from "chai";
 import { deserialize } from "class-transformer";
 import "mocha";
+import * as path from "path";
 import * as TypeMoq from "typemoq";
 import { ILinkCreationConfig } from "../src/actions/LinkAction/ILinkCreationConfig";
 import { ILinkCreator } from "../src/actions/LinkAction/ILinkCreator";
@@ -202,13 +203,48 @@ describe("LinkAction", () => {
     expect(actualLinkAction).to.deep.equal(expectedLinkAction);
   });
 
+  it("deserialize null platform-agnostic destination links", () => {
+    const key1: string = "key1";
+    const key2: string = "key2";
+    const key3: string = "key3";
+    const key4: string = "key4";
+    const sep: string = path.sep;
+    const expectedLinks: Map<string, string[]> = new Map<string, string[]>();
+    expectedLinks.set(key1, [ `~${sep}.${key1}` ]);
+    expectedLinks.set(`.${key2}`, [ `~${sep}.${key2}` ]);
+    expectedLinks.set(`dir/${key3}`, [ `~${sep}.${key3}` ]);
+    expectedLinks.set(`dir/.${key4}`, [ `~${sep}.${key4}` ]);
+
+    const expectedLinkConfig: ILinkCreationConfig = {
+      force: true,
+    };
+
+    const expectedLinkAction: LinkAction = new LinkAction(expectedLinks, undefined, expectedLinkConfig);
+
+    // tslint:disable-next-line:no-multiline-string
+    const json: string = `
+{
+  "force":true,
+  "links": {
+    "${key1}": null,
+    ".${key2}": null,
+    "dir/${key3}": null,
+    "dir/.${key4}": null
+  },
+  "actionType":"link"
+}`;
+
+    const actualLinkAction: LinkAction = deserialize(LinkAction, json);
+    expect(actualLinkAction).to.deep.equal(expectedLinkAction);
+  });
+
   it("deserialize platform-specific destination links", () => {
     const expectedLinksLinux: Map<string, string[]> = new Map<string, string[]>();
     expectedLinksLinux.set("key1", [ "path1" ]);
     expectedLinksLinux.set("key2", [ "path2" ]);
 
     const expectedLinksWindows: Map<string, string[]> = new Map<string, string[]>();
-    expectedLinksWindows.set("key1", [ "path3" ]);
+    expectedLinksWindows.set("key1", [ `~${path.sep}.key1` ]);
 
     const expectedLinksOsx: Map<string, string[]> = new Map<string, string[]>();
     expectedLinksOsx.set("key3", [ "path5" ]);
@@ -236,7 +272,7 @@ describe("LinkAction", () => {
   "links": {
     "key1": {
       "linux": "path1",
-      "windows": "path3"
+      "windows": null
     },
     "key2": {
       "linux": [
