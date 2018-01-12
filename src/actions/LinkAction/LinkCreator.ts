@@ -13,8 +13,9 @@ export class LinkCreator implements ILinkCreator {
         link = LinkCreator.normalizePath(link);
 
         let destinationExists: boolean = false;
+        let stats: fs.Stats | undefined;
         try {
-            await lstatAsync(link);
+            stats = await lstatAsync(link);
             destinationExists = true;
         } catch (error) {
             const e: NodeJS.ErrnoException = error as NodeJS.ErrnoException;
@@ -30,7 +31,7 @@ export class LinkCreator implements ILinkCreator {
 
         const targetFileInfo: fs.Stats = await lstatAsync(target);
         if (targetFileInfo.isDirectory()) {
-            await LinkCreator.createDirectoryLink(target, link, destinationExists);
+            await LinkCreator.createDirectoryLink(target, link, destinationExists, stats);
         } else if (targetFileInfo.isFile()) {
             await LinkCreator.createFileLink(target, link, destinationExists);
         } else {
@@ -46,14 +47,23 @@ export class LinkCreator implements ILinkCreator {
         await symlinkAsync(target, link, "file");
     }
 
-    private static async createDirectoryLink(target: string, link: string, destinationExists: boolean): Promise<void> {
+    private static async createDirectoryLink(
+        target: string,
+        link: string,
+        destinationExists: boolean,
+        stats: fs.Stats | undefined): Promise<void> {
+
         if (destinationExists) {
-            rimraf(link, (error: Error) => {
-                throw error;
-            });
+            if (stats && stats.isSymbolicLink()) {
+                await unlinkAsync(link);
+            } else {
+                rimraf(link, (error: Error) => {
+                    throw error;
+                });
+            }
         }
 
-        await symlinkAsync(target, link, "directory");
+        await symlinkAsync(target, link, "dir");
     }
 
     private static normalizePath(filePath: string): string {
