@@ -2,6 +2,7 @@
 import { expect, use } from "chai";
 import * as chaiAsPromised from "chai-as-promised";
 import "mocha";
+import * as path from "path";
 import * as TypeMoq from "typemoq";
 import { CnctConfig } from "../src/CnctConfig";
 import { CnctConfigLoader } from "../src/CnctConfigLoader";
@@ -53,6 +54,23 @@ describe("Program", () => {
 
         configLoaderMock.verifyAll();
         configMock.verifyAll();
+    });
+
+    it("parses command line args for config file path", () => {
+        const expectedConfigPath: string = "cnct.json";
+        const argv: string[] = `--config ${expectedConfigPath}`.split(" ");
+
+        const program: Program = new Program(argv);
+
+        expect(program.options.config).to.equal(expectedConfigPath);
+    });
+
+    it("parses command line args if no config file path is supplied", () => {
+        const argv: string[] = [ ];
+
+        const program: Program = new Program(argv);
+
+        expect(program.options.config).to.equal(`${process.cwd()}${path.sep}cnct.json`);
     });
 
 });
