@@ -1,11 +1,11 @@
-/* tslint:disable:no-import-side-effect typedef */
+/* tslint:disable:no-import-side-effect */
 import { expect, use } from "chai";
 import * as chaiAsPromised from "chai-as-promised";
 import "mocha";
-import * as path from "path";
 import * as TypeMoq from "typemoq";
 import { CnctConfig } from "../src/CnctConfig/CnctConfig";
 import { CnctConfigLoader } from "../src/CnctConfig/CnctConfigLoader";
+import { ILogger } from "../src/Logger/ILogger";
 import { Program } from "../src/Program";
 
 before(() => {
@@ -17,6 +17,7 @@ describe("Program", () => {
     it("validates and executes on run", async () => {
         const expectedFilePath: string = "somepath";
 
+        /* tslint:disable:typedef */
         const configMock: TypeMoq.IMock<CnctConfig> = TypeMoq.Mock.ofType(CnctConfig, TypeMoq.MockBehavior.Strict);
         configMock.setup(m => m.validate()).verifiable(TypeMoq.Times.once());
         configMock.setup(m => m.execute()).verifiable(TypeMoq.Times.once());
@@ -25,6 +26,7 @@ describe("Program", () => {
         configLoaderMock.setup(async m => m.loadConfigAsync())
             .returns(async () => Promise.resolve(configMock.object))
             .verifiable(TypeMoq.Times.once());
+        /* tslint:enable:typedef */
 
         const program: Program = new Program([ "", "", expectedFilePath ], configLoaderMock.object);
         await program.runAsync();
@@ -37,6 +39,7 @@ describe("Program", () => {
         const expectedFilePath: string = "somepath";
         const expectedError: Error = new Error("some validation error");
 
+        /* tslint:disable:typedef */
         const configMock: TypeMoq.IMock<CnctConfig> = TypeMoq.Mock.ofType(CnctConfig, TypeMoq.MockBehavior.Strict);
         configMock.setup(m => m.validate())
             .throws(expectedError)
@@ -47,6 +50,7 @@ describe("Program", () => {
         configLoaderMock.setup(async m => m.loadConfigAsync())
             .returns(async () => Promise.resolve(configMock.object))
             .verifiable(TypeMoq.Times.once());
+        /* tslint:enable:typedef */
 
         const program: Program = new Program([ "", "", expectedFilePath ], configLoaderMock.object);
         // tslint:disable-next-line:await-promise
@@ -56,30 +60,22 @@ describe("Program", () => {
         configMock.verifyAll();
     });
 
-    it("parses command line args for config file path", () => {
-        const expectedConfigPath: string = "cnct.json";
-        const argv: string[] = `--config ${expectedConfigPath}`.split(" ");
+    it("displays help content", async () => {
+        // tslint:disable:typedef
+        const loggerMock = TypeMoq.Mock.ofType<ILogger>(undefined, TypeMoq.MockBehavior.Strict);
+        loggerMock.setup(m => m.logInfo(TypeMoq.It.isAnyString())).verifiable(TypeMoq.Times.once());
 
-        const program: Program = new Program(argv);
+        const configLoaderMock = TypeMoq.Mock.ofType(CnctConfigLoader, TypeMoq.MockBehavior.Strict);
+        configLoaderMock.setup(async (m) => m.loadConfigAsync()).verifiable(TypeMoq.Times.never());
+        // tslint:enable:typedef
 
-        expect(program.options.config).to.equal(expectedConfigPath);
-    });
+        const program: Program = new Program([], configLoaderMock.object, loggerMock.object);
+        program.options.help = true;
 
-    it("parses command line args if no config file path is supplied", () => {
-        const argv: string[] = [ ];
+        await program.runAsync();
 
-        const program: Program = new Program(argv);
-
-        expect(program.options.config).to.equal(`${process.cwd()}${path.sep}cnct.json`);
-    });
-
-    it("parses command line args if no config file path is supplied", () => {
-        const argv: string[] = "--quiet --verbose".split(" ");
-
-        const program: Program = new Program(argv);
-
-        expect(program.options.quiet).to.equal(true, "quiet should have been set");
-        expect(program.options.verbose).to.equal(false, "verbose should not have been set");
+        loggerMock.verifyAll();
+        configLoaderMock.verifyAll();
     });
 
 });

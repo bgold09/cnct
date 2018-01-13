@@ -1,24 +1,13 @@
-import * as commandLineArgs from "command-line-args";
-import { OptionDefinition } from "command-line-args";
-import * as path from "path";
 import { CnctConfig } from "./CnctConfig/CnctConfig";
 import { CnctConfigLoader } from "./CnctConfig/CnctConfigLoader";
-
-export type ProgramOptions = {
-    config: string,
-    quiet: boolean,
-    verbose: boolean,
-};
+import { CommandLineArgs, ProgramOptions } from "./CommandLineArgs";
+import { ConsoleLogger } from "./Logger/ConsoleLogger";
+import { ILogger } from "./Logger/ILogger";
 
 export class Program {
     public static cliOptions: ProgramOptions;
 
-    private static readonly cliOptionDefinitions: OptionDefinition[] = [
-        { alias: "c", name: "config",  type: String },
-        { alias: "q", name: "quiet",   type: Boolean },
-        { alias: "v", name: "verbose", type: Boolean },
-    ];
-
+    public readonly cliArgs: CommandLineArgs;
     private readonly configLoader: CnctConfigLoader;
 
     public get options(): ProgramOptions {
@@ -28,18 +17,11 @@ export class Program {
     public constructor(
         argv: string[],
         configLoader?: CnctConfigLoader,
+        private readonly logger: ILogger = new ConsoleLogger(),
     ) {
-        const options: ProgramOptions = commandLineArgs(Program.cliOptionDefinitions, { argv }) as ProgramOptions;
-        if (!options.config) {
-            options.config = `${process.cwd()}${path.sep}cnct.json`;
-        }
-
-        if (options.quiet) {
-            // quiet-level logging should override everything else
-            options.verbose = false;
-        }
-
-        Program.cliOptions = options;
+        const cliArgs: CommandLineArgs = new CommandLineArgs(argv);
+        this.cliArgs = cliArgs;
+        Program.cliOptions = cliArgs.options;
 
         if (configLoader) {
             this.configLoader = configLoader;
@@ -49,6 +31,14 @@ export class Program {
     }
 
     public async runAsync(): Promise<void> {
+        if (this.options.help) {
+            const usage: string = this.cliArgs.usage;
+            this.options.quiet = false;
+            this.logger.logInfo(usage);
+
+            return;
+        }
+
         const cnctConfig: CnctConfig = await this.configLoader.loadConfigAsync();
 
         cnctConfig.validate();
