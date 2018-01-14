@@ -19,3 +19,8 @@ build: off
 
 cache:
  - "%LOCALAPPDATA%\\Yarn"
+
+artifacts:
+  - path: dist/src
+    name: cnct
+
