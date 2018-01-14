@@ -7,8 +7,10 @@
   "scripts": {
     "compile": "node ./node_modules/typescript/bin/tsc",
     "lint": "node ./node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json src/**/*.ts test/**/*.ts",
-    "mocha": "node ./node_modules/mocha/bin/mocha ./dist/**/**.spec.js",
-    "test": "npm run lint && npm run compile && npm run mocha"
+    "mocha": "node ./node_modules/mocha/bin/mocha",
+    "cover": "node ./node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text-summary ./node_modules/mocha/bin/_mocha",
+    "codacy": "node ./node_modules/shx/lib/cli.js cat ./coverage/lcov.info | node ./node_modules/codacy-coverage/bin/codacy-coverage.js --language typescript",
+    "test": "npm run lint && npm run compile && npm run cover && npm run codacy"
   },
   "repository": "git+https://github.com/bgold09/cnct.git",
   "keywords": [
@@ -21,6 +23,23 @@
     "url": "https://github.com/bgold09/cnct/issues"
   },
   "homepage": "https://github.com/bgold09/cnct#readme",
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/**/ConsoleLogger.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "all": true,
+    "sourceMap": true,
+    "instrument": true
+  },
   "devDependencies": {
     "@types/chai": "^4.0.10",
     "@types/chai-as-promised": "^7.1.0",
@@ -30,7 +49,12 @@
     "@types/rimraf": "^2.0.2",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
+    "codacy-coverage": "^2.0.3",
     "mocha": "^4.0.1",
+    "nyc": "^11.4.1",
+    "shx": "^0.2.2",
+    "source-map-support": "^0.5.0",
+    "ts-node": "^4.1.0",
     "tslint": "^5.8.0",
     "tslint-microsoft-contrib": "^5.0.1",
     "typemoq": "^2.1.0",
