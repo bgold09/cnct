@@ -41,7 +41,7 @@ describe("CnctConfig", () => {
         actionMock2.setup(m => m.validate()).verifiable(TypeMoq.Times.once());
 
         const loggerMock = TypeMoq.Mock.ofType<ILogger>();
-        loggerMock.setup(m => m.logVerbose(TypeMoq.It.isAnyString())).verifiable(TypeMoq.Times.exactly(2));
+        loggerMock.setup(m => m.logDebug(TypeMoq.It.isAnyString())).verifiable(TypeMoq.Times.exactly(2));
         /* tslint:enable:typedef */
 
         const cnctConfig: CnctConfig = new CnctConfig([ actionMock1.object, actionMock2.object ], loggerMock.object);

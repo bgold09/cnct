@@ -24,12 +24,12 @@ describe("CommandLineArgs", () => {
     });
 
     it("parses command line args if no config file path is supplied", () => {
-        const argv: string[] = "--quiet --verbose".split(" ");
+        const argv: string[] = "--quiet --debug".split(" ");
 
         const cliArgs: CommandLineArgs = new CommandLineArgs(argv);
 
         expect(cliArgs.options.quiet).to.equal(true, "quiet should have been set");
-        expect(cliArgs.options.verbose).to.equal(false, "verbose should not have been set");
+        expect(cliArgs.options.debug).to.equal(false, "debug should not have been set");
     });
 
 });

@@ -14,8 +14,8 @@ export class ConsoleLogger implements ILogger {
         console.error(message);
     }
 
-    public logVerbose(message: string): void {
-        if (Program.cliOptions.verbose) {
+    public logDebug(message: string): void {
+        if (Program.cliOptions.debug) {
             console.log(message);
         }
     }

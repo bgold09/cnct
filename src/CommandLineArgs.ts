@@ -6,7 +6,8 @@ import * as path from "path";
 export type ProgramOptions = {
     config: string,
     quiet: boolean,
-    verbose: boolean,
+    debug: boolean,
+    version: boolean,
     help: boolean,
 };
 
@@ -28,9 +29,15 @@ export class CommandLineArgs {
             description: "Suppress all output other than errors."
         },
         {
-            name: "verbose",
-            alias: "v",
+            name: "debug",
+            alias: "d",
             type: Boolean
+        },
+        {
+            name: "version",
+            alias: "v",
+            type: Boolean,
+            description: "Display version information and exit."
         },
         {
             name: "help",
@@ -65,7 +72,7 @@ export class CommandLineArgs {
 
         if (options.quiet) {
             // quiet-level logging should override everything else
-            options.verbose = false;
+            options.debug = false;
         }
 
         this.options = options;

@@ -46,7 +46,7 @@ export class CnctConfig {
         this.actionConfigs.forEach((action: CnctActionBase, index: number) => {
             try {
                 action.validate();
-                this.logger.logVerbose(`${action.actionType} action validation passed`);
+                this.logger.logDebug(`${action.actionType} action validation passed`);
             } catch (e) {
                 const error: Error = e as Error;
                 invalidActions.push({

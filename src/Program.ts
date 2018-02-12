@@ -39,9 +39,19 @@ export class Program {
             return;
         }
 
+        if (this.options.version) {
+            this.displayVersionInformation();
+
+            return;
+        }
+
         const cnctConfig: CnctConfig = await this.configLoader.loadConfigAsync();
 
         cnctConfig.validate();
         cnctConfig.execute();
+    }
+
+    private displayVersionInformation(): void {
+        this.logger.logInfo("cnct v0.1.0");
     }
 }
