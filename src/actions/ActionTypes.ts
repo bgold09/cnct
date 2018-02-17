@@ -1,7 +1,7 @@
 import { CnctActionBase } from "./CnctActionBase";
 import { LinkAction } from "./LinkAction/LinkAction";
 
-// tslint:disable-next-line:no-stateless-class
+// tslint:disable-next-line:no-stateless-class no-unnecessary-class
 export class ActionTypes {
     // tslint:disable-next-line:no-any typedef
     private static readonly actionTypes = new Map<string, new (...args: any[]) => CnctActionBase>();
