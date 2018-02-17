@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "class-transformer": "^0.1.9",
-    "command-line-args": "^4.0.7",
+    "command-line-args": "^5.0.2",
     "command-line-usage": "^4.1.0",
     "rimraf": "^2.6.2"
   }
