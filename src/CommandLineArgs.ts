@@ -1,14 +1,15 @@
-import { OptionDefinition } from "command-line-args";
 import * as commandLineArgs from "command-line-args";
 import * as cliUsage from "command-line-usage";
 import * as path from "path";
 
+type OptionDefinition = commandLineArgs.OptionDefinition;
+
 export type ProgramOptions = {
-    config: string,
-    quiet: boolean,
-    debug: boolean,
-    version: boolean,
-    help: boolean,
+    config: string;
+    quiet: boolean;
+    debug: boolean;
+    version: boolean;
+    help: boolean;
 };
 
 export class CommandLineArgs {

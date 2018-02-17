@@ -36,12 +36,12 @@ export class CnctConfig {
             }
 
             const actionClass: CnctActionBase = plainToClass(actionCtor, action);
-            this.actionConfigs.push(actionClass as CnctActionBase);
+            this.actionConfigs.push(actionClass);
         });
     }
 
     public validate(): void {
-        const invalidActions: Array<{ index: number, message: string }> = [];
+        const invalidActions: Array<{ index: number; message: string }> = [];
 
         this.actionConfigs.forEach((action: CnctActionBase, index: number) => {
             try {
@@ -58,7 +58,7 @@ export class CnctConfig {
 
         if (invalidActions.length > 0) {
             let message: string = "The following actions are improperly configured:";
-            invalidActions.forEach((info: { index: number, message: string }) => {
+            invalidActions.forEach((info: { index: number; message: string }) => {
                 message += `\n  actions[${info.index}]: ${info.message}`;
             });
 

@@ -11,14 +11,14 @@ import { LinkCreator } from "./LinkCreator";
 type DestinationLinksSignature = string | string[] | null;
 
 type LinksPropertySignature = {
-    [index: string]: DestinationLinksSignature | PlatformLinks
+    [index: string]: DestinationLinksSignature | PlatformLinks;
 };
 
 type PlatformLinks = {
-    global?: DestinationLinksSignature,
-    linux?: DestinationLinksSignature,
-    osx?: DestinationLinksSignature,
-    windows?: DestinationLinksSignature,
+    global?: DestinationLinksSignature;
+    linux?: DestinationLinksSignature;
+    osx?: DestinationLinksSignature;
+    windows?: DestinationLinksSignature;
 };
 
 type OperatingSystemType = "Darwin" | "Linux" | "Windows_NT";
