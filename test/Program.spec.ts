@@ -28,7 +28,7 @@ describe("Program", () => {
             .verifiable(TypeMoq.Times.once());
         /* tslint:enable:typedef */
 
-        const program: Program = new Program([ "", "", expectedFilePath ], configLoaderMock.object);
+        const program: Program = new Program([ "-c", expectedFilePath ], configLoaderMock.object);
         await program.runAsync();
 
         configLoaderMock.verifyAll();
@@ -52,7 +52,7 @@ describe("Program", () => {
             .verifiable(TypeMoq.Times.once());
         /* tslint:enable:typedef */
 
-        const program: Program = new Program([ "", "", expectedFilePath ], configLoaderMock.object);
+        const program: Program = new Program([ "-c", expectedFilePath ], configLoaderMock.object);
         // tslint:disable-next-line:await-promise
         await expect(program.runAsync()).to.be.rejectedWith(expectedError);
 
