@@ -13,3 +13,7 @@ cache:
     - node_modules
 
 sudo: false
+
+branches:
+  except:
+  - /^dependabot\/.*/
