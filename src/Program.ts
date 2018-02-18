@@ -52,6 +52,6 @@ export class Program {
     }
 
     private displayVersionInformation(): void {
-        this.logger.logInfo("cnct v0.1.0");
+        this.logger.logInfo("cnct v0.2.0-prerelease");
     }
 }
