@@ -1,5 +1,6 @@
 import { CnctActionBase } from "./CnctActionBase";
 import { LinkAction } from "./LinkAction/LinkAction";
+import { ShellAction } from "./ShellAction/ShellAction";
 
 // tslint:disable-next-line:no-stateless-class no-unnecessary-class
 export class ActionTypes {
@@ -14,6 +15,7 @@ export class ActionTypes {
         }
 
         ActionTypes.actionTypes.set(LinkAction.linkActionType, LinkAction);
+        ActionTypes.actionTypes.set(ShellAction.shellActionType, ShellAction);
 
         return ActionTypes.actionTypes;
     }

@@ -1,6 +1,8 @@
 {
     "cSpell.words": [
-        "cnct"
+        "cnct",
+        "deserialize",
+        "promisify"
     ],
     "files.eol": "\n",
     "tslint.configFile": "tslint.json", 

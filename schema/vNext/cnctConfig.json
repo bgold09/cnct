@@ -13,6 +13,9 @@
             "items": {
                 "oneOf": [
                     {
+                        "$ref": "#/definitions/ShellAction"
+                    },
+                    {
                         "$ref": "#/definitions/LinkAction"
                     }
                 ]
@@ -61,6 +64,41 @@
                     "$ref": "#/definitions/DestinationLinks"
                 }
             }
+        },
+        "ShellAction": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/ActionBase"
+                },
+                {
+                    "type": "object",
+                    "required": [
+                        "command"
+                    ],
+                    "properties": {
+                        "actionType": {
+                            "enum": [
+                                "shell"
+                            ]
+                        },
+                        "command": {
+                            "type": "string"
+                        },
+                        "shell": {
+                            "enum": [
+                                "sh",
+                                "powershell"
+                            ]
+                        },
+                        "silent": {
+                            "type": "boolean"
+                        },
+                        "description": {
+                            "type": "string"
+                        }
+                    }
+                }
+            ]
         },
         "LinkAction": {
             "allOf":[
