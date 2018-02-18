@@ -1,4 +1,7 @@
 {
+    "cSpell.words": [
+        "cnct"
+    ],
     "files.eol": "\n",
     "tslint.configFile": "tslint.json", 
     "tslint.run": "onType", 
