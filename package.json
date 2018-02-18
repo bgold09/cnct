@@ -64,6 +64,7 @@
     "class-transformer": "^0.1.9",
     "command-line-args": "^5.0.2",
     "command-line-usage": "^4.1.0",
+    "node-powershell": "^3.3.1",
     "rimraf": "^2.6.2"
   }
 }
