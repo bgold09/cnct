@@ -34,7 +34,7 @@ describe("ShellAction", () => {
 
   it("throws for empty command", () => {
     const shellAction: ShellAction = new ShellAction({ command: "" });
-    expect(() => shellAction.validate).to.throw(RangeError, "Shell command cannot be empty.");
+    expect(() => shellAction.validate()).to.throw(RangeError, "Shell command cannot be empty.");
   });
 
 });
