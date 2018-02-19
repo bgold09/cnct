@@ -12,7 +12,7 @@ export class ShellInvokerPowerShell implements IShellInvoker {
 
     public async invokeShellAsync(shellActionConfig: IShellActionConfig): Promise<void> {
         const shell: NodePowerShell = new NodePowerShell({
-            debugMsg: false,
+            debugMsg: !shellActionConfig.silent,
             noProfile: true,
         });
         await shell.addCommand(shellActionConfig.command);

@@ -15,7 +15,7 @@ export class ShellInvokerSH implements IShellInvoker {
 
     public async invokeShellAsync(shellActionConfig: IShellActionConfig): Promise<void> {
         const options: ExecOptions = {
-            silent: false,
+            silent: shellActionConfig.silent,
             async: false,
         };
 

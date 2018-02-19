@@ -35,6 +35,10 @@ export class ShellAction extends CnctActionBase {
     public async execute(): Promise<void> {
         super.execute();
 
+        if (this.shellConfig.silent === undefined) {
+            this.shellConfig.silent = true;
+        }
+
         const shellInvoker: IShellInvoker = selectShell(this.shellConfig.shell);
         await shellInvoker.invokeShellAsync(this.shellConfig);
     }

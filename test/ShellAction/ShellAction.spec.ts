@@ -10,6 +10,7 @@ describe("ShellAction", () => {
   it("can deserialize action", () => {
     const expectedCommand: string = "some command --param arg";
     const expectedShell: ShellType = "sh";
+    const expectedSilent: boolean = true;
     const expectedDescription: string = "some description";
     const expectedShellConfig: IShellActionConfig = {
         shell: expectedShell,
@@ -24,6 +25,7 @@ describe("ShellAction", () => {
 {
   "command": "${expectedCommand}",
   "shell": "${expectedShell}",
+  "silent": ${expectedSilent},
   "description": "${expectedDescription}",
   "actionType": "shell"
 }`;
