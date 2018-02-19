@@ -1,4 +1,4 @@
-export type ShellType = "powershell" | "bash";
+export type ShellType = "powershell" | "sh";
 
 export interface IShellActionConfig {
     shell?: ShellType;

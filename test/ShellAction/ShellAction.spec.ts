@@ -9,7 +9,7 @@ describe("ShellAction", () => {
 
   it("can deserialize action", () => {
     const expectedCommand: string = "some command --param arg";
-    const expectedShell: ShellType = "bash";
+    const expectedShell: ShellType = "sh";
     const expectedDescription: string = "some description";
     const expectedShellConfig: IShellActionConfig = {
         shell: expectedShell,
@@ -30,6 +30,11 @@ describe("ShellAction", () => {
 
     const actualShellAction: ShellAction = deserialize(ShellAction, json);
     expect(actualShellAction).to.deep.equal(expectedShellAction);
+  });
+
+  it("throws for empty command", () => {
+    const shellAction: ShellAction = new ShellAction({ command: "" });
+    expect(() => shellAction.validate).to.throw(RangeError, "Shell command cannot be empty.");
   });
 
 });

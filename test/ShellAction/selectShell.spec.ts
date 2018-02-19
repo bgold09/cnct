@@ -5,8 +5,8 @@ import * as os from "os";
 import { ShellType } from "../../src/actions/ShellAction/IShellActionConfig";
 import { IShellInvoker } from "../../src/actions/ShellAction/IShellInvoker";
 import { selectShell } from "../../src/actions/ShellAction/selectShell";
-import { ShellInvokerBash } from "../../src/actions/ShellAction/ShellInvokerBash";
 import { ShellInvokerPowerShell } from "../../src/actions/ShellAction/ShellInvokerPowerShell";
+import { ShellInvokerSH } from "../../src/actions/ShellAction/ShellInvokerSH";
 import { OperatingSystemType } from "../../src/OperatingSystem";
 
 describe("selectShell", () => {
@@ -18,9 +18,9 @@ describe("selectShell", () => {
     });
 
     it("selects bash invoker", () => {
-        const shellType: ShellType = "bash";
+        const shellType: ShellType = "sh";
         const shellInvoker: IShellInvoker = selectShell(shellType);
-        expect(shellInvoker).to.be.instanceOf(ShellInvokerBash);
+        expect(shellInvoker).to.be.instanceOf(ShellInvokerSH);
     });
 
     it("selects default OS invoker", () => {
@@ -30,7 +30,7 @@ describe("selectShell", () => {
         if (osType === "Windows_NT") {
             actualShellInvoker = ShellInvokerPowerShell;
         } else {
-            actualShellInvoker = ShellInvokerBash;
+            actualShellInvoker = ShellInvokerSH;
         }
 
         expect(shellInvoker).to.be.instanceOf(actualShellInvoker);
