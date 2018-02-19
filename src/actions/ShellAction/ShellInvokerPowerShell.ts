@@ -15,14 +15,14 @@ export class ShellInvokerPowerShell implements IShellInvoker {
             debugMsg: false,
             noProfile: true,
         });
-        shell.addCommand(shellActionConfig.command);
+        await shell.addCommand(shellActionConfig.command);
         this.logger.logDebug(`EXECUTING: ${shell.history}`);
         try {
             await shell.invoke();
         } catch (error) {
             this.logger.logError(`Error: ${error}`);
         } finally {
-            shell.dispose();
+            await shell.dispose();
         }
     }
 }
