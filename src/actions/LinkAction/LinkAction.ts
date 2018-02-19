@@ -3,6 +3,7 @@ import * as os from "os";
 import * as path from "path";
 import { ConsoleLogger } from "../../Logger/ConsoleLogger";
 import { ILogger } from "../../Logger/ILogger";
+import { OperatingSystemType } from "../../OperatingSystem";
 import { CnctActionBase } from "../CnctActionBase";
 import { ILinkCreationConfig } from "./ILinkCreationConfig";
 import { ILinkCreator } from "./ILinkCreator";
@@ -20,8 +21,6 @@ type PlatformLinks = {
     osx?: DestinationLinksSignature;
     windows?: DestinationLinksSignature;
 };
-
-type OperatingSystemType = "Darwin" | "Linux" | "Windows_NT";
 
 type PlatformSpecificLinks = {
     [index in OperatingSystemType]: Map<string, string[]>
