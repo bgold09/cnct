@@ -11,7 +11,7 @@ export class ShellAction extends CnctActionBase {
     public static readonly shellActionType: string = "shell";
 
     public constructor(
-        public readonly shellConfig: IShellActionConfig = {},
+        public readonly shellConfig: IShellActionConfig = { command: "" },
         logger: ILogger = new ConsoleLogger(),
     ) {
         super(ShellAction.shellActionType, logger);
@@ -36,9 +36,7 @@ export class ShellAction extends CnctActionBase {
         super.execute();
 
         const shellInvoker: IShellInvoker = selectShell(this.shellConfig.shell);
-        shellInvoker.invokeShell(this.shellConfig);
-
-        return Promise.resolve();
+        await shellInvoker.invokeShellAsync(this.shellConfig);
     }
 
     public validate(): void {
