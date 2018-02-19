@@ -5,8 +5,6 @@ import { ILogger } from "../../Logger/ILogger";
 import { IShellActionConfig } from "./IShellActionConfig";
 import { IShellInvoker } from "./IShellInvoker";
 
-// export const execAsync: (command: string, options: shelljs.ExecOptions)
-//  => Promise<shelljs.ExecOutputReturnValue> = promisify(shelljs.exec);
 const execAsync = promisify<string, ExecOptions, ExecOutputReturnValue>(exec);
 
 export class ShellInvokerSH implements IShellInvoker {
