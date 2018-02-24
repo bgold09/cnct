@@ -4,6 +4,7 @@ import { deserialize } from "class-transformer";
 import "mocha";
 import { IShellActionConfig, ShellType } from "../../src/actions/ShellAction/IShellActionConfig";
 import { ShellAction } from "../../src/actions/ShellAction/ShellAction";
+import { getOperatingSystemType } from "../../src/OperatingSystem";
 
 describe("ShellAction", () => {
 
@@ -38,6 +39,20 @@ describe("ShellAction", () => {
   it("throws for empty command", () => {
     const shellAction: ShellAction = new ShellAction({ command: "" });
     expect(() => shellAction.validate()).to.throw(RangeError, "Shell command cannot be empty.");
+  });
+
+  it("throws for unsupported shell on OS", () => {
+    const shellType: ShellType = (getOperatingSystemType() === "Windows_NT")
+      ? "sh"
+      : "powershell";
+
+    const config: IShellActionConfig = {
+      shell: shellType,
+      command: "some command"
+    };
+
+    const shellAction: ShellAction = new ShellAction(config);
+    expect(() => shellAction.validate()).to.throw(RangeError, /is not supported/);
   });
 
 });
