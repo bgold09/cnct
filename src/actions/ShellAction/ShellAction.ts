@@ -33,6 +33,11 @@ export class ShellAction extends CnctActionBase {
         this.shellConfig.description = description;
     }
 
+    @Expose()
+    public set silent(silent: boolean) {
+        this.shellConfig.silent = silent;
+    }
+
     public async execute(): Promise<void> {
         super.execute();
 
