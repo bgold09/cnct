@@ -2,7 +2,7 @@ import { type } from "os";
 
 export type OperatingSystemType = "Darwin" | "Linux" | "Windows_NT";
 
-export function getOperatingSystemType() : OperatingSystemType{
+export function getOperatingSystemType() : OperatingSystemType {
     return type() as OperatingSystemType;
 }
 
