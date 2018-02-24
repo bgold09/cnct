@@ -16,6 +16,7 @@ describe("ShellAction", () => {
         shell: expectedShell,
         command: expectedCommand,
         description: expectedDescription,
+        silent: expectedSilent,
     };
 
     const expectedShellAction: ShellAction = new ShellAction(expectedShellConfig);
