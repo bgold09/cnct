@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+  * New "shell" action to execute shell commands
+    * Use PowerShell on Windows, sh on Linux and OSX
+
 ## 0.1.0 – 2018.02.18
 
 This is the initial release of `cnct`, a cross-platform command-line tool for installing your dotfiles
