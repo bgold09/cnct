@@ -1,6 +1,7 @@
 import { Exclude, Expose } from "class-transformer";
 import { ConsoleLogger } from "../../Logger/ConsoleLogger";
 import { ILogger } from "../../Logger/ILogger";
+import { getOperatingSystemType, OperatingSystemType, toFriendlyOperatingSystemName } from "../../OperatingSystem";
 import { CnctActionBase } from "../CnctActionBase";
 import { IShellActionConfig, ShellType } from "./IShellActionConfig";
 import { IShellInvoker } from "./IShellInvoker";
@@ -46,6 +47,16 @@ export class ShellAction extends CnctActionBase {
     public validate(): void {
         if (!this.shellConfig.command || this.shellConfig.command === "") {
             throw new RangeError("Shell command cannot be empty.");
+        }
+
+        if (this.shellConfig.shell) {
+            const shellType: ShellType = this.shellConfig.shell;
+            const osType: OperatingSystemType = getOperatingSystemType();
+            if ((osType === "Windows_NT" && shellType === "sh")
+                    || ((osType === "Linux" || osType === "Darwin") && shellType === "powershell")) {
+                const osName: string = toFriendlyOperatingSystemName(osType);
+                throw new RangeError(`Shell type '${shellType}' is not supported for operating system '${osName}'.`);
+            }
         }
     }
 }
