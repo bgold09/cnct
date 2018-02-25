@@ -1,17 +1,17 @@
 import { CnctConfig } from "./CnctConfig/CnctConfig";
 import { CnctConfigLoader } from "./CnctConfig/CnctConfigLoader";
 import { CommandLineArgs, ProgramOptions } from "./CommandLineArgs";
-import { ConsoleLogger } from "./Logger/ConsoleLogger";
+import { ConsoleLogger, LOGGER_OPTIONS } from "./Logger/ConsoleLogger";
 import { ILogger } from "./Logger/ILogger";
 
 export class Program {
-    public static cliOptions: ProgramOptions;
+    public cliOptions: ProgramOptions;
 
     public readonly cliArgs: CommandLineArgs;
     private readonly configLoader: CnctConfigLoader;
 
     public get options(): ProgramOptions {
-        return Program.cliOptions;
+        return this.cliOptions;
     }
 
     public constructor(
@@ -21,7 +21,10 @@ export class Program {
     ) {
         const cliArgs: CommandLineArgs = new CommandLineArgs(argv);
         this.cliArgs = cliArgs;
-        Program.cliOptions = cliArgs.options;
+        this.cliOptions = cliArgs.options;
+
+        LOGGER_OPTIONS.debug = this.cliOptions.debug;
+        LOGGER_OPTIONS.quiet = this.cliOptions.quiet;
 
         if (configLoader) {
             this.configLoader = configLoader;
