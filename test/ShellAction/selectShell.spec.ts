@@ -26,7 +26,7 @@ describe("selectShell", () => {
         const shellInvoker: IShellInvoker = selectShell(undefined);
         const osType: OperatingSystemType = getOperatingSystemType();
         let actualShellInvoker: Object;
-        if (osType === "Windows_NT") {
+        if (osType === "windows") {
             actualShellInvoker = ShellInvokerPowerShell;
         } else {
             actualShellInvoker = ShellInvokerSH;

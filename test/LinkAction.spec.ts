@@ -64,9 +64,9 @@ describe("LinkAction", () => {
 
     // tslint:disable-next-line:typedef
     const platformLinks = {
-      Linux: expectedLinksLinux,
-      Windows_NT: expectedLinksWindows,
-      Darwin: expectedLinksOsx,
+      linux: expectedLinksLinux,
+      windows: expectedLinksWindows,
+      osx: expectedLinksOsx,
     };
 
     /* tslint:disable:typedef */
@@ -136,9 +136,9 @@ describe("LinkAction", () => {
     const expectedLinks: Map<string, string[]> = new Map<string, string[]>();
     // tslint:disable-next-line:typedef
     const platformLinks = {
-      Darwin: new Map<string, string[]>(),
-      Windows_NT: new Map<string, string[]>(),
-      Linux: new Map<string, string[]>(),
+      osx: new Map<string, string[]>(),
+      windows: new Map<string, string[]>(),
+      linux: new Map<string, string[]>(),
     };
 
     // tslint:disable-next-line:no-require-imports typedef
@@ -258,9 +258,9 @@ describe("LinkAction", () => {
 
     // tslint:disable-next-line:typedef
     const platformLinks = {
-      Linux: expectedLinksLinux,
-      Windows_NT: expectedLinksWindows,
-      Darwin: expectedLinksOsx,
+      linux: expectedLinksLinux,
+      windows: expectedLinksWindows,
+      osx: expectedLinksOsx,
     };
 
     const expectedLinkAction: LinkAction = new LinkAction(expectedLinksGlobal, platformLinks, expectedLinkConfig);

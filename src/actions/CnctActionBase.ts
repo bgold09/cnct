@@ -1,7 +1,7 @@
 import { Expose } from "class-transformer";
 import { ConsoleLogger } from "../Logger/ConsoleLogger";
 import { ILogger } from "../Logger/ILogger";
-import { fromFriendlyOperatingSystemName, getOperatingSystemType, OperatingSystemType } from "../OperatingSystem";
+import { fromOperatingSystemString, getOperatingSystemType, OperatingSystemType } from "../OperatingSystem";
 
 export abstract class CnctActionBase {
     protected osTypes: Set<OperatingSystemType> = new Set<OperatingSystemType>();
@@ -19,10 +19,10 @@ export abstract class CnctActionBase {
         }
 
         if (typeof os === "string") {
-            this.osTypes.add(fromFriendlyOperatingSystemName(os));
+            this.osTypes.add(fromOperatingSystemString(os));
         } else {
             os.forEach((value: string) => {
-                this.osTypes.add(fromFriendlyOperatingSystemName(value));
+                this.osTypes.add(fromOperatingSystemString(value));
             });
         }
     }

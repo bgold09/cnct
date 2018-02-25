@@ -1,39 +1,29 @@
 import { type } from "os";
 
-export type OperatingSystemType = "Darwin" | "Linux" | "Windows_NT";
+export type OperatingSystemType = "linux" | "windows" | "osx";
 
 export function getOperatingSystemType() : OperatingSystemType {
-    return type() as OperatingSystemType;
-}
-
-export function toFriendlyOperatingSystemName(osType: OperatingSystemType): string {
+    const osType: string = type();
     switch (osType) {
         case "Windows_NT":
-            return "Windows";
+            return "windows";
 
         case "Linux":
-            return "Linux";
+            return "linux";
 
         case "Darwin":
-            return "OSX";
+            return "osx";
 
         default:
-            throw new RangeError();
+            throw new RangeError(`Unrecognized operating system type '${osType}`);
     }
 }
 
-export function fromFriendlyOperatingSystemName(osType: string) : OperatingSystemType {
-        switch (osType.toLowerCase()) {
-            case "windows":
-                return "Windows_NT";
-
-            case "linux":
-                return "Linux";
-
-            case "osx":
-                return "Darwin";
-
-            default:
-                throw new RangeError(`Unrecognized operating system type '${osType}`);
-        }
+export function fromOperatingSystemString(osType: string) : OperatingSystemType {
+    const convertedOSType: OperatingSystemType = osType.toLowerCase() as OperatingSystemType;
+    if (convertedOSType === "windows" || convertedOSType === "linux" || convertedOSType === "osx") {
+        return convertedOSType;
+    } else {
+        throw new RangeError(`Unrecognized operating system type '${osType}`);
+    }
 }

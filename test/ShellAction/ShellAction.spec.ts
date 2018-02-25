@@ -42,7 +42,7 @@ describe("ShellAction", () => {
   });
 
   it("throws for unsupported shell on OS", () => {
-    const shellType: ShellType = (getOperatingSystemType() === "Windows_NT")
+    const shellType: ShellType = (getOperatingSystemType() === "windows")
       ? "sh"
       : "powershell";
 

@@ -1,9 +1,8 @@
 import { Exclude, Expose } from "class-transformer";
-import * as os from "os";
 import * as path from "path";
 import { ConsoleLogger } from "../../Logger/ConsoleLogger";
 import { ILogger } from "../../Logger/ILogger";
-import { OperatingSystemType } from "../../OperatingSystem";
+import { getOperatingSystemType, OperatingSystemType } from "../../OperatingSystem";
 import { CnctActionBase } from "../CnctActionBase";
 import { ILinkCreationConfig } from "./ILinkCreationConfig";
 import { ILinkCreator } from "./ILinkCreator";
@@ -33,9 +32,9 @@ export class LinkAction extends CnctActionBase {
     public constructor(
         private platformAgnosticLinks: Map<string, string[]> = new Map<string, string[]>(),
         private readonly platformLinks: PlatformSpecificLinks = {
-            Windows_NT: new Map<string, string[]>(),
-            Linux: new Map<string, string[]>(),
-            Darwin: new Map<string, string[]>(),
+            windows: new Map<string, string[]>(),
+            linux: new Map<string, string[]>(),
+            osx: new Map<string, string[]>(),
         },
         public readonly linkCreationConfig: ILinkCreationConfig = {},
         private readonly linkCreator: ILinkCreator = new LinkCreator(),
@@ -61,9 +60,9 @@ export class LinkAction extends CnctActionBase {
             } else if (destinations === null) {
                 this.platformAgnosticLinks.set(key, [ LinkAction.convertTargetForNull(key) ]);
             } else {
-                LinkAction.parseLinkAssociations(key, destinations.linux, this.platformLinks.Linux);
-                LinkAction.parseLinkAssociations(key, destinations.windows, this.platformLinks.Windows_NT);
-                LinkAction.parseLinkAssociations(key, destinations.osx, this.platformLinks.Darwin);
+                LinkAction.parseLinkAssociations(key, destinations.linux, this.platformLinks.linux);
+                LinkAction.parseLinkAssociations(key, destinations.windows, this.platformLinks.windows);
+                LinkAction.parseLinkAssociations(key, destinations.osx, this.platformLinks.osx);
                 LinkAction.parseLinkAssociations(key, destinations.global, this.platformAgnosticLinks);
             }
         });
@@ -74,7 +73,7 @@ export class LinkAction extends CnctActionBase {
 
         this.createLinks(this.platformAgnosticLinks);
 
-        const osType: OperatingSystemType = os.type() as OperatingSystemType;
+        const osType: OperatingSystemType = getOperatingSystemType();
         const platformLinks: Map<string, string[]> | undefined = this.platformLinks[osType];
         if (platformLinks) {
             this.createLinks(platformLinks);
@@ -82,7 +81,7 @@ export class LinkAction extends CnctActionBase {
     }
 
     public validate(): void {
-        const currentPlatformLinks: Map<string, string[]> = this.platformLinks[os.type() as OperatingSystemType];
+        const currentPlatformLinks: Map<string, string[]> = this.platformLinks[getOperatingSystemType()];
         if (this.platformAgnosticLinks.size === 0 && currentPlatformLinks.size === 0) {
             throw new RangeError("There must be at least one target path to create links for.");
         }
