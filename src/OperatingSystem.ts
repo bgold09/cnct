@@ -21,3 +21,19 @@ export function toFriendlyOperatingSystemName(osType: OperatingSystemType): stri
             throw new RangeError();
     }
 }
+
+export function fromFriendlyOperatingSystemName(osType: string) : OperatingSystemType {
+        switch (osType.toLowerCase()) {
+            case "windows":
+                return "Windows_NT";
+
+            case "linux":
+                return "Linux";
+
+            case "osx":
+                return "Darwin";
+
+            default:
+                throw new RangeError(`Unrecognized operating system type '${osType}`);
+        }
+}
