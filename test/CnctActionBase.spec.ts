@@ -21,22 +21,8 @@ describe("CnctActionBase", () => {
 
 });
 
-class TestLogger implements ILogger {
-    public logInfo(message: string): void {
-        console.log(message);
-    }
-
-    public logError(message: string): void {
-        console.error(message);
-    }
-
-    public logDebug(message: string): void {
-        console.log(message);
-    }
-}
-
 class TestAction extends CnctActionBase {
-    public constructor(logger: ILogger = new TestLogger()) {
+    public constructor(logger?: ILogger) {
         super("test", logger);
     }
 

@@ -1,4 +1,5 @@
 import { Expose } from "class-transformer";
+import { ConsoleLogger } from "../Logger/ConsoleLogger";
 import { ILogger } from "../Logger/ILogger";
 import { fromFriendlyOperatingSystemName, getOperatingSystemType, OperatingSystemType } from "../OperatingSystem";
 
@@ -7,7 +8,7 @@ export abstract class CnctActionBase {
 
     protected constructor(
         public readonly actionType: string,
-        protected readonly logger: ILogger,
+        protected readonly logger: ILogger = new ConsoleLogger(),
     ) {
     }
 
