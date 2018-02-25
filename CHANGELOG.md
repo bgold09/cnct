@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+  * Allow running actions for specific operating systems.
   * New "shell" action to execute shell commands
     * Use PowerShell on Windows, sh on Linux and OSX
 

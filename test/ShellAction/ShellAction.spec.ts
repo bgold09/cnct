@@ -4,7 +4,7 @@ import { deserialize } from "class-transformer";
 import "mocha";
 import { IShellActionConfig, ShellType } from "../../src/actions/ShellAction/IShellActionConfig";
 import { ShellAction } from "../../src/actions/ShellAction/ShellAction";
-import { getOperatingSystemType } from "../../src/OperatingSystem";
+import { CURRENT_OS_TYPE } from "../../src/OperatingSystem";
 
 describe("ShellAction", () => {
 
@@ -42,7 +42,7 @@ describe("ShellAction", () => {
   });
 
   it("throws for unsupported shell on OS", () => {
-    const shellType: ShellType = (getOperatingSystemType() === "Windows_NT")
+    const shellType: ShellType = (CURRENT_OS_TYPE === "windows")
       ? "sh"
       : "powershell";
 

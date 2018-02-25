@@ -6,7 +6,7 @@ import { IShellInvoker } from "../../src/actions/ShellAction/IShellInvoker";
 import { selectShell } from "../../src/actions/ShellAction/selectShell";
 import { ShellInvokerPowerShell } from "../../src/actions/ShellAction/ShellInvokerPowerShell";
 import { ShellInvokerSH } from "../../src/actions/ShellAction/ShellInvokerSH";
-import { getOperatingSystemType, OperatingSystemType } from "../../src/OperatingSystem";
+import { CURRENT_OS_TYPE, OperatingSystemType } from "../../src/OperatingSystem";
 
 describe("selectShell", () => {
 
@@ -24,9 +24,9 @@ describe("selectShell", () => {
 
     it("selects default OS invoker", () => {
         const shellInvoker: IShellInvoker = selectShell(undefined);
-        const osType: OperatingSystemType = getOperatingSystemType();
+        const osType: OperatingSystemType = CURRENT_OS_TYPE;
         let actualShellInvoker: Object;
-        if (osType === "Windows_NT") {
+        if (osType === "windows") {
             actualShellInvoker = ShellInvokerPowerShell;
         } else {
             actualShellInvoker = ShellInvokerSH;

@@ -29,6 +29,14 @@
                 "actionType"
             ],
             "properties": {
+                "os": {
+                    "type": "string",
+                    "enum": [
+                        "windows",
+                        "linux",
+                        "osx"
+                    ]
+                },
                 "actionType": {
                     "type": "string"
                 }

@@ -67,8 +67,12 @@ export class CnctConfig {
     }
 
     public execute(): void {
-        this.actionConfigs.forEach((action: CnctActionBase) => {
-            action.execute();
+        this.actionConfigs.forEach((action: CnctActionBase, index: number) => {
+            if (action.shouldExecute()) {
+                action.execute();
+            } else {
+                this.logger.logDebug(`Skipping action[${index}]`);
+            }
         });
     }
 }

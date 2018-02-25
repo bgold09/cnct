@@ -1,7 +1,7 @@
 import { Exclude, Expose } from "class-transformer";
 import { ConsoleLogger } from "../../Logger/ConsoleLogger";
 import { ILogger } from "../../Logger/ILogger";
-import { getOperatingSystemType, OperatingSystemType, toFriendlyOperatingSystemName } from "../../OperatingSystem";
+import { CURRENT_OS_TYPE, OperatingSystemType } from "../../OperatingSystem";
 import { CnctActionBase } from "../CnctActionBase";
 import { IShellActionConfig, ShellType } from "./IShellActionConfig";
 import { IShellInvoker } from "./IShellInvoker";
@@ -56,11 +56,10 @@ export class ShellAction extends CnctActionBase {
 
         if (this.shellConfig.shell) {
             const shellType: ShellType = this.shellConfig.shell;
-            const osType: OperatingSystemType = getOperatingSystemType();
-            if ((osType === "Windows_NT" && shellType === "sh")
-                    || ((osType === "Linux" || osType === "Darwin") && shellType === "powershell")) {
-                const osName: string = toFriendlyOperatingSystemName(osType);
-                throw new RangeError(`Shell type '${shellType}' is not supported for operating system '${osName}'.`);
+            const osType: OperatingSystemType = CURRENT_OS_TYPE;
+            if ((osType === "windows" && shellType === "sh")
+                    || ((osType === "linux" || osType === "osx") && shellType === "powershell")) {
+                throw new RangeError(`Shell type '${shellType}' is not supported for operating system '${osType}'.`);
             }
         }
     }
