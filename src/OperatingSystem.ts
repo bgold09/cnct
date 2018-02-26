@@ -24,6 +24,6 @@ export function fromOperatingSystemString(osType: string) : OperatingSystemType 
     if (convertedOSType === "windows" || convertedOSType === "linux" || convertedOSType === "osx") {
         return convertedOSType;
     } else {
-        throw new RangeError(`Unrecognized operating system type '${osType}`);
+        throw new RangeError(`Unrecognized operating system type '${osType}'`);
     }
 }
