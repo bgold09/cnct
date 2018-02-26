@@ -1,4 +1,4 @@
-import { getOperatingSystemType } from "../../OperatingSystem";
+import { CURRENT_OS_TYPE } from "../../OperatingSystem";
 import { ShellType } from "./IShellActionConfig";
 import { IShellInvoker } from "./IShellInvoker";
 import { ShellInvokerPowerShell } from "./ShellInvokerPowerShell";
@@ -13,7 +13,7 @@ export function selectShell(shellType: ShellType | undefined): IShellInvoker {
             return new ShellInvokerSH();
 
         case undefined:
-            return (getOperatingSystemType() === "windows")
+            return (CURRENT_OS_TYPE === "windows")
                 ? new ShellInvokerPowerShell()
                 : new ShellInvokerSH();
 

@@ -1,21 +1,23 @@
-import { type } from "os";
+import { platform } from "os";
 
 export type OperatingSystemType = "linux" | "windows" | "osx";
 
-export function getOperatingSystemType() : OperatingSystemType {
-    const osType: string = type();
+export const CURRENT_OS_TYPE: OperatingSystemType = getOperatingSystemType();
+
+function getOperatingSystemType() : OperatingSystemType {
+    const osType: NodeJS.Platform = platform();
     switch (osType) {
-        case "Windows_NT":
+        case "win32":
             return "windows";
 
-        case "Linux":
+        case "linux":
             return "linux";
 
-        case "Darwin":
+        case "darwin":
             return "osx";
 
         default:
-            throw new RangeError(`Unrecognized operating system type '${osType}`);
+            throw new RangeError(`Unrecognized operating system platform '${osType}`);
     }
 }
 

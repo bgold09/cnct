@@ -1,7 +1,7 @@
 import { Expose } from "class-transformer";
 import { ConsoleLogger } from "../Logger/ConsoleLogger";
 import { ILogger } from "../Logger/ILogger";
-import { fromOperatingSystemString, getOperatingSystemType, OperatingSystemType } from "../OperatingSystem";
+import { CURRENT_OS_TYPE, fromOperatingSystemString, OperatingSystemType } from "../OperatingSystem";
 
 export abstract class CnctActionBase {
     protected osTypes: Set<OperatingSystemType> = new Set<OperatingSystemType>();
@@ -29,7 +29,7 @@ export abstract class CnctActionBase {
 
     public execute(): void {
         if (this.osTypes.size === 0
-                || (this.osTypes.size > 0 && this.osTypes.has(getOperatingSystemType()))) {
+                || (this.osTypes.size > 0 && this.osTypes.has(CURRENT_OS_TYPE))) {
             this.logger.logInfo(`executing ${this.actionType} action:`);
         }
     }

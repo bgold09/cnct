@@ -2,7 +2,7 @@ import { Exclude, Expose } from "class-transformer";
 import * as path from "path";
 import { ConsoleLogger } from "../../Logger/ConsoleLogger";
 import { ILogger } from "../../Logger/ILogger";
-import { getOperatingSystemType, OperatingSystemType } from "../../OperatingSystem";
+import { CURRENT_OS_TYPE, OperatingSystemType } from "../../OperatingSystem";
 import { CnctActionBase } from "../CnctActionBase";
 import { ILinkCreationConfig } from "./ILinkCreationConfig";
 import { ILinkCreator } from "./ILinkCreator";
@@ -73,7 +73,7 @@ export class LinkAction extends CnctActionBase {
 
         this.createLinks(this.platformAgnosticLinks);
 
-        const osType: OperatingSystemType = getOperatingSystemType();
+        const osType: OperatingSystemType = CURRENT_OS_TYPE;
         const platformLinks: Map<string, string[]> | undefined = this.platformLinks[osType];
         if (platformLinks) {
             this.createLinks(platformLinks);
@@ -81,7 +81,7 @@ export class LinkAction extends CnctActionBase {
     }
 
     public validate(): void {
-        const currentPlatformLinks: Map<string, string[]> = this.platformLinks[getOperatingSystemType()];
+        const currentPlatformLinks: Map<string, string[]> = this.platformLinks[CURRENT_OS_TYPE];
         if (this.platformAgnosticLinks.size === 0 && currentPlatformLinks.size === 0) {
             throw new RangeError("There must be at least one target path to create links for.");
         }

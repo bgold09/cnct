@@ -1,18 +1,18 @@
 /* tslint:disable:no-import-side-effect */
 import { expect } from "chai";
 import "mocha";
-import { type } from "os";
-import { fromOperatingSystemString, getOperatingSystemType, OperatingSystemType } from "../src/OperatingSystem";
+import { platform } from "os";
+import { CURRENT_OS_TYPE, fromOperatingSystemString, OperatingSystemType } from "../src/OperatingSystem";
 
 function getExpectedOSType(): OperatingSystemType {
-    switch (type()) {
-        case "Windows_NT":
+    switch (platform()) {
+        case "win32":
             return "windows";
 
-        case "Linux":
+        case "linux":
             return "linux";
 
-        case "Darwin":
+        case "darwin":
             return "osx";
 
         default:
@@ -24,13 +24,13 @@ describe("OperatingSystem", () => {
 
     it("getOperatingSystemType for supported OS", () => {
         const expectedOSType: OperatingSystemType = getExpectedOSType();
-        const actualOSType: OperatingSystemType = getOperatingSystemType();
+        const actualOSType: OperatingSystemType = CURRENT_OS_TYPE;
         expect(actualOSType).to.equal(expectedOSType);
     });
 
     it("fromOperatingSystemString for supported OS", () => {
         const expectedOSType: OperatingSystemType = getExpectedOSType();
-        const actualOSType: OperatingSystemType = fromOperatingSystemString(type());
+        const actualOSType: OperatingSystemType = fromOperatingSystemString(expectedOSType.toLocaleUpperCase());
 
         expect(actualOSType).to.equal(expectedOSType);
     });

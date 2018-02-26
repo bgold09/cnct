@@ -5,7 +5,7 @@ import "mocha";
 import * as TypeMoq from "typemoq";
 import { CnctActionBase } from "../src/actions/CnctActionBase";
 import { ILogger } from "../src/Logger/ILogger";
-import { getOperatingSystemType, OperatingSystemType } from "../src/OperatingSystem";
+import { CURRENT_OS_TYPE, OperatingSystemType } from "../src/OperatingSystem";
 
 class TestAction extends CnctActionBase {
     public constructor(logger?: ILogger) {
@@ -33,7 +33,7 @@ describe("CnctActionBase", () => {
     });
 
     it("can deserialize", () => {
-        const expectedOS: OperatingSystemType = getOperatingSystemType();
+        const expectedOS: OperatingSystemType = CURRENT_OS_TYPE;
         // tslint:disable-next-line:no-multiline-string
         const json: string = `
 {

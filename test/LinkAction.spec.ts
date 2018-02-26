@@ -8,6 +8,7 @@ import { ILinkCreationConfig } from "../src/actions/LinkAction/ILinkCreationConf
 import { ILinkCreator } from "../src/actions/LinkAction/ILinkCreator";
 import { LinkAction } from "../src/actions/LinkAction/LinkAction";
 import { ILogger } from "../src/Logger/ILogger";
+import { CURRENT_OS_TYPE } from "../src/OperatingSystem";
 
 describe("LinkAction", () => {
 
@@ -73,8 +74,10 @@ describe("LinkAction", () => {
     const loggerMock = TypeMoq.Mock.ofType<ILogger>();
     loggerMock.setup(m => m.logInfo(TypeMoq.It.is(s => s.startsWith("  [LINK]")))).verifiable(TypeMoq.Times.exactly(3));
 
+    const expectedOSLinks: Map<string, string[]> = platformLinks[CURRENT_OS_TYPE];
+
     const linkCreatorMock = TypeMoq.Mock.ofType<ILinkCreator>(undefined, TypeMoq.MockBehavior.Strict);
-    expectedLinksOsx.forEach((destinationPaths: string[], targetPath: string) => {
+    expectedOSLinks.forEach((destinationPaths: string[], targetPath: string) => {
       for (const destinationPath of destinationPaths) {
         linkCreatorMock.setup(
           async m => m.createLinkAsync(
@@ -98,11 +101,6 @@ describe("LinkAction", () => {
       }
     });
     /* tslint:enable:typedef */
-
-    // tslint:disable-next-line:no-require-imports typedef
-    const os = require("os");
-    // tslint:disable-next-line:no-unsafe-any
-    os.type = (): string => "Darwin";
 
     const linkAction: LinkAction = new LinkAction(
       expectedLinksGlobal,
