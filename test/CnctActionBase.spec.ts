@@ -5,7 +5,7 @@ import "mocha";
 import * as TypeMoq from "typemoq";
 import { CnctActionBase } from "../src/actions/CnctActionBase";
 import { ILogger } from "../src/Logger/ILogger";
-import { OperatingSystemType, getOperatingSystemType } from "../src/OperatingSystem";
+import { getOperatingSystemType, OperatingSystemType } from "../src/OperatingSystem";
 
 class TestAction extends CnctActionBase {
     public constructor(logger?: ILogger) {
