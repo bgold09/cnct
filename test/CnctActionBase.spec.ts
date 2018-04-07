@@ -32,6 +32,38 @@ describe("CnctActionBase", () => {
         loggerMock.verifyAll();
     });
 
+    it("executes for current OS type", () => {
+        // tslint:disable:typedef
+        const loggerMock = TypeMoq.Mock.ofType<ILogger>();
+        loggerMock.setup(m => m.logInfo(TypeMoq.It.is((s: string) => s.startsWith("executing")))).verifiable(TypeMoq.Times.once());
+        // tslint:enable:typedef
+
+        const testAction: TestAction = new TestAction(loggerMock.object);
+        testAction.os = CURRENT_OS_TYPE;
+
+        testAction.execute();
+
+        loggerMock.verifyAll();
+    });
+
+    it("does not execute if current OS type excluded", () => {
+        // tslint:disable:typedef
+        const loggerMock = TypeMoq.Mock.ofType<ILogger>();
+        loggerMock.setup(m => m.logInfo(TypeMoq.It.isAnyString())).verifiable(TypeMoq.Times.never());
+        // tslint:enable:typedef
+
+        const osType: OperatingSystemType = CURRENT_OS_TYPE === "windows"
+            ? "linux"
+            : "windows";
+
+        const testAction: TestAction = new TestAction(loggerMock.object);
+        testAction.os = osType;
+
+        testAction.execute();
+
+        loggerMock.verifyAll();
+    });
+
     it("can deserialize", () => {
         const expectedOS: OperatingSystemType = CURRENT_OS_TYPE;
         // tslint:disable-next-line:no-multiline-string
