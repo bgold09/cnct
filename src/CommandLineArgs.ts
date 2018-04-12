@@ -32,7 +32,8 @@ export class CommandLineArgs {
         {
             name: "debug",
             alias: "d",
-            type: Boolean
+            type: Boolean,
+            description: "Output additional debug information."
         },
         {
             name: "version",
