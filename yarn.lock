@@ -32,9 +32,9 @@
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.2.tgz#09c06877e478a5d5f32ce5017c2eb2b33006f6f5"
 
-"@types/mocha@^5.2.3":
-  version "5.2.3"
-  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-5.2.3.tgz#11f3a5629d67cd444fa6c94536576244e6a52ea9"
+"@types/mocha@^5.2.4":
+  version "5.2.4"
+  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-5.2.4.tgz#2f8fbdf95c69ebf82150a7864864010f186745bf"
 
 "@types/node-powershell@^3.1.0":
   version "3.1.0"
