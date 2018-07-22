@@ -42,9 +42,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*", "@types/node@^9.6.2":
-  version "9.6.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.2.tgz#e49ac1adb458835e95ca6487bc20f916b37aff23"
+"@types/node@*", "@types/node@^10.5.2":
+  version "10.5.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.2.tgz#f19f05314d5421fe37e74153254201a7bf00a707"
 
 "@types/rimraf@^2.0.2":
   version "2.0.2"
