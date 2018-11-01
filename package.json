@@ -63,7 +63,7 @@
     "typescript": "^2.9.2"
   },
   "dependencies": {
-    "class-transformer": "^0.1.9",
+    "class-transformer": "^0.1.10",
     "command-line-args": "^5.0.2",
     "command-line-usage": "^5.0.5",
     "node-powershell": "^3.3.1",
