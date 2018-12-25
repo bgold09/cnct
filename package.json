@@ -9,8 +9,11 @@
     "lint": "node ./node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json src/**/*.ts test/**/*.ts",
     "mocha": "node ./node_modules/mocha/bin/mocha",
     "cover": "node ./node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text-summary ./node_modules/mocha/bin/_mocha",
-    "codacy": "node ./node_modules/shx/lib/cli.js cat ./coverage/lcov.info | node ./node_modules/codacy-coverage/bin/codacy-coverage.js --language typescript",
-    "test": "npm run lint && npm run compile && npm run cover && npm run codacy"
+    "codacy": "if test \"$TRAVIS\" = \"true\" ; then node ./node_modules/shx/lib/cli.js cat ./coverage/lcov.info | node ./node_modules/codacy-coverage/bin/codacy-coverage.js --language typescript ; fi",
+    "test": "run-script-os",
+    "test:linux": "npm run lint && npm run compile && npm run cover && npm run codacy",
+    "test:win32": "npm run lint && npm run compile",
+    "test:darwin": "npm run lint && npm run compile"
   },
   "repository": "git+https://github.com/bgold09/cnct.git",
   "keywords": [
@@ -51,7 +54,7 @@
     "@types/shelljs": "^0.8.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "codacy-coverage": "^2.0.3",
+    "codacy-coverage": "^3.3.0",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
     "shx": "^0.3.2",
@@ -68,6 +71,7 @@
     "command-line-usage": "^5.0.5",
     "node-powershell": "^3.3.1",
     "rimraf": "^2.6.2",
+    "run-script-os": "^1.0.5",
     "shelljs": "^0.8.2"
   }
 }
