@@ -5,15 +5,15 @@
   "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "compile": "node ./node_modules/typescript/bin/tsc",
-    "lint": "node ./node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json src/**/*.ts test/**/*.ts",
-    "mocha": "node ./node_modules/mocha/bin/mocha",
-    "cover": "node ./node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text-summary ./node_modules/mocha/bin/_mocha",
-    "codacy": "if test \"$TRAVIS\" = \"true\" ; then node ./node_modules/shx/lib/cli.js cat ./coverage/lcov.info | node ./node_modules/codacy-coverage/bin/codacy-coverage.js --language typescript ; fi",
+    "compile": "tsc",
+    "lint": "tslint -p tsconfig.json -c tslint.json src/**/*.ts test/**/*.ts",
+    "mocha": "mocha",
+    "cover": "nyc --reporter=lcov --reporter=text-summary mocha",
+    "codacy": "if test \"$TRAVIS\" = \"true\" ; then shx cat ./coverage/lcov.info | codacy-coverage --language typescript ; fi",
     "test": "run-script-os",
     "test:linux": "npm run lint && npm run compile && npm run cover && npm run codacy",
-    "test:win32": "npm run lint && npm run compile",
-    "test:darwin": "npm run lint && npm run compile"
+    "test:win32": "npm run lint && npm run compile && npm run cover",
+    "test:darwin": "npm run lint && npm run compile && npm run cover"
   },
   "repository": "git+https://github.com/bgold09/cnct.git",
   "keywords": [
