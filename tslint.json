@@ -10,6 +10,9 @@
         "completed-docs": false,
         "no-floating-promises": true,
         "function-name": false,
+        // Remove suppression for import-name when related bug is fixed
+        // https://github.com/Microsoft/tslint-microsoft-contrib/issues/667
+        "import-name": false,
         "interface-name": [ true, "always-prefix" ],
         "member-ordering": [ 
             true,
@@ -34,8 +37,10 @@
             }
         ],
         "missing-jsdoc": false,
+        "newline-per-chained-call": false,
         "no-any": true,
         "no-backbone-get-set-outside-model" : false,
+        "no-console": false,
         "no-implicit-dependencies": [ true, "dev" ],
         "no-parameter-properties": false,
         "no-parameter-reassignment": false,

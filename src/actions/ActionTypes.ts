@@ -17,6 +17,8 @@ export class ActionTypes {
         ActionTypes.actionTypes.set(LinkAction.linkActionType, LinkAction);
         ActionTypes.actionTypes.set(ShellAction.shellActionType, ShellAction);
 
+        ActionTypes.initialized = true;
+
         return ActionTypes.actionTypes;
     }
 

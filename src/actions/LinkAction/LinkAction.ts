@@ -30,7 +30,7 @@ export class LinkAction extends CnctActionBase {
     public static readonly linkActionType: string = "link";
 
     public constructor(
-        private platformAgnosticLinks: Map<string, string[]> = new Map<string, string[]>(),
+        private readonly platformAgnosticLinks: Map<string, string[]> = new Map<string, string[]>(),
         private readonly platformLinks: PlatformSpecificLinks = {
             windows: new Map<string, string[]>(),
             linux: new Map<string, string[]>(),
