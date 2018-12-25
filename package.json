@@ -10,7 +10,10 @@
     "mocha": "node ./node_modules/mocha/bin/mocha",
     "cover": "node ./node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text-summary ./node_modules/mocha/bin/_mocha",
     "codacy": "if test \"$TRAVIS\" = \"true\" ; then node ./node_modules/shx/lib/cli.js cat ./coverage/lcov.info | node ./node_modules/codacy-coverage/bin/codacy-coverage.js --language typescript ; fi",
-    "test": "npm run lint && npm run compile && npm run cover && npm run codacy"
+    "test": "run-script-os",
+    "test:linux": "npm run lint && npm run compile && npm run cover && npm run codacy",
+    "test:win32": "npm run lint && npm run compile",
+    "test:darwin": "npm run lint && npm run compile"
   },
   "repository": "git+https://github.com/bgold09/cnct.git",
   "keywords": [
@@ -68,6 +71,7 @@
     "command-line-usage": "^5.0.5",
     "node-powershell": "^3.3.1",
     "rimraf": "^2.6.2",
+    "run-script-os": "^1.0.5",
     "shelljs": "^0.8.2"
   }
 }
