@@ -9,7 +9,7 @@
     "lint": "node ./node_modules/tslint/bin/tslint -p tsconfig.json -c tslint.json src/**/*.ts test/**/*.ts",
     "mocha": "node ./node_modules/mocha/bin/mocha",
     "cover": "node ./node_modules/nyc/bin/nyc.js --reporter=lcov --reporter=text-summary ./node_modules/mocha/bin/_mocha",
-    "codacy": "[ $TRAVIS == \"true\" ] && node ./node_modules/shx/lib/cli.js cat ./coverage/lcov.info | node ./node_modules/codacy-coverage/bin/codacy-coverage.js --language typescript",
+    "codacy": "if [ \"$TRAVIS\" = \"true\" ]; then node ./node_modules/shx/lib/cli.js cat ./coverage/lcov.info | node ./node_modules/codacy-coverage/bin/codacy-coverage.js --language typescript; fi",
     "test": "npm run lint && npm run compile && npm run cover && npm run codacy"
   },
   "repository": "git+https://github.com/bgold09/cnct.git",
