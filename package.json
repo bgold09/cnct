@@ -51,7 +51,7 @@
     "@types/shelljs": "^0.8.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "codacy-coverage": "^2.0.3",
+    "codacy-coverage": "^3.3.0",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
     "shx": "^0.3.2",
