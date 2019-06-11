@@ -131,9 +131,9 @@
     "@types/glob" "*"
     "@types/node" "*"
 
-"@types/shelljs@^0.8.3":
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/@types/shelljs/-/shelljs-0.8.3.tgz#f713f312dbae49ab5025290007e71ea32998e9a9"
+"@types/shelljs@^0.8.5":
+  version "0.8.5"
+  resolved "https://registry.yarnpkg.com/@types/shelljs/-/shelljs-0.8.5.tgz#1e507b2f6d1f893269bd3e851ec24419ef9beeea"
   dependencies:
     "@types/glob" "*"
     "@types/node" "*"
