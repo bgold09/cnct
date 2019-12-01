@@ -44,7 +44,7 @@
     "instrument": true
   },
   "devDependencies": {
-    "@types/chai": "^4.2.3",
+    "@types/chai": "^4.2.5",
     "@types/chai-as-promised": "^7.1.2",
     "@types/command-line-args": "^4.0.2",
     "@types/mocha": "^5.2.7",
