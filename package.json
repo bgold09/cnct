@@ -68,7 +68,7 @@
   "dependencies": {
     "class-transformer": "^0.2.3",
     "command-line-args": "^5.1.1",
-    "command-line-usage": "^5.0.5",
+    "command-line-usage": "^6.1.0",
     "node-powershell": "^3.3.1",
     "rimraf": "^2.6.3",
     "run-script-os": "^1.0.7",
