@@ -51,7 +51,7 @@
     "@types/node": "^10.12.21",
     "@types/node-powershell": "^3.1.0",
     "@types/rimraf": "^2.0.2",
-    "@types/shelljs": "^0.8.5",
+    "@types/shelljs": "^0.8.6",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "codacy-coverage": "^3.4.0",
