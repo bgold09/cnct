@@ -110,9 +110,9 @@
   version "4.2.11"
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.2.11.tgz#d3614d6c5f500142358e6ed24e1bf16657536c50"
 
-"@types/command-line-args@^4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@types/command-line-args/-/command-line-args-4.0.2.tgz#bbb7568685bbcd9c69b46c9e6a3f6411890735c8"
+"@types/command-line-args@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@types/command-line-args/-/command-line-args-5.0.0.tgz#484e704d20dbb8754a8f091eee45cdd22bcff28c"
 
 "@types/events@*":
   version "1.1.0"

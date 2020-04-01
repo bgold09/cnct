@@ -46,7 +46,7 @@
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/chai-as-promised": "^7.1.2",
-    "@types/command-line-args": "^4.0.2",
+    "@types/command-line-args": "^5.0.0",
     "@types/mocha": "^5.2.7",
     "@types/node": "^10.12.21",
     "@types/node-powershell": "^3.1.0",
